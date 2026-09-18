@@ -30,7 +30,8 @@
     "haveAccount": "Already have an account?",
     "noAccount": "No account yet?",
     "invalidCredentials": "Wrong email or password",
-    "emailTaken": "That email is already registered"
+    "emailTaken": "That email is already registered",
+    "orTelegram": "Or sign in with Telegram:"
   },
   "catalog": {
     "title": "Catalog",
@@ -345,5 +346,74 @@
     "widgetTitle": "FPS in games",
     "widgetHint": "High preset, no ray tracing. Choose a processor and a graphics card to see the estimate.",
     "widgetMore": "All games and settings"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "deliveryNote": "We deliver across Tashkent. The courier will call before arriving.",
+    "summary": "Your order",
+    "total": "To pay",
+    "fields": {
+      "name": "Recipient name",
+      "phone": "Phone",
+      "district": "District",
+      "address": "Street, building, apartment",
+      "comment": "Order comment"
+    },
+    "invalid": {
+      "name": "Enter a name",
+      "phone": "Use the +998 XX XXX XX XX format",
+      "district": "Choose a district",
+      "address": "Please give a fuller address"
+    },
+    "chooseDistrict": "Choose a district",
+    "addressPlaceholder": "e.g. 15 Amir Temur St, apt 4",
+    "submit": "Pay with Telegram",
+    "submitMock": "Continue to payment",
+    "processing": "Placing order…",
+    "telegramHint": "A Telegram invoice will open — pay with Click or Payme.",
+    "mockHint": "Test mode: no real money is charged.",
+    "errors": {
+      "emptyCart": "Your cart is empty.",
+      "outOfStock": "Some items ran out — please check your cart.",
+      "tooLarge": "The total exceeds the Telegram limit for one invoice — please split the order.",
+      "notPayable": "This order is already paid or cancelled.",
+      "priceChanged": "Prices changed since you placed the order — please order again."
+    },
+    "mockBadge": "Test payment — no money is charged",
+    "payTitle": "Pay for order №{number}",
+    "mockPay": "Pay (test)",
+    "alreadyPaid": "The order is already paid.",
+    "later": "Pay later",
+    "districts": {
+      "bektemir": "Bektemir district",
+      "chilonzor": "Chilonzor district",
+      "mirobod": "Mirobod district",
+      "mirzoUlugbek": "Mirzo Ulugbek district",
+      "olmazor": "Olmazor district",
+      "sergeli": "Sergeli district",
+      "shayxontohur": "Shaykhontohur district",
+      "uchtepa": "Uchtepa district",
+      "yakkasaroy": "Yakkasaroy district",
+      "yashnobod": "Yashnobod district",
+      "yunusobod": "Yunusobod district",
+      "yangihayot": "Yangihayot district"
+    }
+  },
+  "account": {
+    "title": "My account",
+    "paid": "Payment received. We will contact you to arrange delivery.",
+    "orders": "My orders",
+    "noOrders": "No orders yet.",
+    "pay": "Pay",
+    "builds": "Saved builds",
+    "noBuilds": "Save a build in the PC Builder and it will show up here.",
+    "parts": "{count, plural, one {# part} other {# parts}}",
+    "status": {
+      "PENDING": "Awaiting payment",
+      "PAID": "Paid",
+      "SHIPPED": "Out for delivery",
+      "DONE": "Delivered",
+      "CANCELLED": "Cancelled"
+    }
   }
 }

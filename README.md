@@ -55,9 +55,16 @@ Create a `.env` file in the project root. No `.env` file is ever committed.
 | `TELEGRAM_BOT_USERNAME` | Bot username, used by the Telegram Login widget |
 | `TELEGRAM_PROVIDER_TOKEN` | Payment provider token. **Leave empty for sandbox mode** — payments are simulated locally, no bot or public HTTPS needed |
 | `TELEGRAM_WEBHOOK_SECRET` | Any random string; Telegram echoes it back in a request header |
+| `TELEGRAM_ADMIN_CHAT_ID` | Chat that gets a message about every paid order (optional) |
 | `ADMIN_PATH` | URL segment of the hidden admin panel |
 | `ADMIN_EMAIL` | Administrator account created by the seed |
 | `ADMIN_PASSWORD` | Administrator password used by the seed |
+
+Register the webhook once the site has public HTTPS:
+
+```bash
+curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<domain>/api/telegram/webhook&secret_token=<TELEGRAM_WEBHOOK_SECRET>"
+```
 
 ### Scripts
 
@@ -122,9 +129,16 @@ Loyiha ildizida `.env` faylini yarating. `.env` fayli hech qachon repozitoriyga 
 | `TELEGRAM_BOT_USERNAME` | Telegram Login vidjeti uchun bot nomi |
 | `TELEGRAM_PROVIDER_TOKEN` | To'lov provayderi tokeni. **Bo'sh qoldirilsa — sinov rejimi:** to'lov mahalliy taqlid qilinadi, bot va ochiq HTTPS talab etilmaydi |
 | `TELEGRAM_WEBHOOK_SECRET` | Ixtiyoriy tasodifiy satr; Telegram uni sarlavhada qaytaradi |
+| `TELEGRAM_ADMIN_CHAT_ID` | Har bir to'langan buyurtma haqida xabar keladigan chat (ixtiyoriy) |
 | `ADMIN_PATH` | Yashirin admin panelning manzil qismi |
 | `ADMIN_EMAIL` | Seed yaratadigan administrator hisobi |
 | `ADMIN_PASSWORD` | Seed ishlatadigan administrator paroli |
+
+Sayt ochiq HTTPS manzilga ega bo'lgach, vebhukni ro'yxatdan o'tkazing:
+
+```bash
+curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<domain>/api/telegram/webhook&secret_token=<TELEGRAM_WEBHOOK_SECRET>"
+```
 
 ### Buyruqlar
 
@@ -188,9 +202,16 @@ npm run dev
 | `TELEGRAM_BOT_USERNAME` | Имя бота для виджета Telegram Login |
 | `TELEGRAM_PROVIDER_TOKEN` | Токен платёжного провайдера. **Пусто — режим песочницы:** оплата имитируется локально, бот и публичный HTTPS не нужны |
 | `TELEGRAM_WEBHOOK_SECRET` | Произвольная случайная строка; Telegram возвращает её в заголовке |
+| `TELEGRAM_ADMIN_CHAT_ID` | Чат, куда приходит сообщение о каждом оплаченном заказе (необязательно) |
 | `ADMIN_PATH` | Сегмент адреса скрытой админ-панели |
 | `ADMIN_EMAIL` | Учётная запись администратора, создаётся сидом |
 | `ADMIN_PASSWORD` | Пароль администратора, используется сидом |
+
+Когда у сайта появится публичный HTTPS-адрес, зарегистрируйте вебхук:
+
+```bash
+curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=https://<domain>/api/telegram/webhook&secret_token=<TELEGRAM_WEBHOOK_SECRET>"
+```
 
 ### Команды
 

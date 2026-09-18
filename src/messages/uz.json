@@ -30,7 +30,8 @@
     "haveAccount": "Hisobingiz bormi?",
     "noAccount": "Hisobingiz yo'qmi?",
     "invalidCredentials": "Pochta yoki parol noto'g'ri",
-    "emailTaken": "Bu pochta allaqachon ro'yxatdan o'tgan"
+    "emailTaken": "Bu pochta allaqachon ro'yxatdan o'tgan",
+    "orTelegram": "Yoki Telegram orqali kiring:"
   },
   "catalog": {
     "title": "Katalog",
@@ -345,5 +346,74 @@
     "widgetTitle": "O‘yinlarda FPS",
     "widgetHint": "Yuqori sozlamalar, nur kuzatuvisiz. Taxminni ko‘rish uchun protsessor va videokartani tanlang.",
     "widgetMore": "Barcha o‘yinlar va sozlamalar"
+  },
+  "checkout": {
+    "title": "Buyurtmani rasmiylashtirish",
+    "deliveryNote": "Toshkent bo‘ylab yetkazib beramiz. Kuryer kelishdan oldin qo‘ng‘iroq qiladi.",
+    "summary": "Buyurtmangiz",
+    "total": "To‘lov uchun",
+    "fields": {
+      "name": "Qabul qiluvchining ismi",
+      "phone": "Telefon",
+      "district": "Tuman",
+      "address": "Ko‘cha, uy, xonadon",
+      "comment": "Buyurtmaga izoh"
+    },
+    "invalid": {
+      "name": "Ismni kiriting",
+      "phone": "Raqam +998 XX XXX XX XX formatida",
+      "district": "Tumanni tanlang",
+      "address": "Manzilni batafsilroq kiriting"
+    },
+    "chooseDistrict": "Tumanni tanlang",
+    "addressPlaceholder": "Masalan, Amir Temur ko‘chasi, 15, 4-xonadon",
+    "submit": "Telegram orqali to‘lash",
+    "submitMock": "To‘lovga o‘tish",
+    "processing": "Rasmiylashtirilmoqda…",
+    "telegramHint": "Telegramda hisob ochiladi — Click yoki Payme orqali to‘lov.",
+    "mockHint": "Test rejimi: haqiqiy pul yechilmaydi.",
+    "errors": {
+      "emptyCart": "Savat bo‘sh.",
+      "outOfStock": "Ba’zi tovarlar tugadi — savatni tekshiring.",
+      "tooLarge": "Summa Telegramdagi bitta hisob limitidan katta — buyurtmani bo‘ling.",
+      "notPayable": "Bu buyurtma allaqachon to‘langan yoki bekor qilingan.",
+      "priceChanged": "Rasmiylashtirilgandan beri narxlar o‘zgardi — buyurtmani qaytadan rasmiylashtiring."
+    },
+    "mockBadge": "Test to‘lovi — pul yechilmaydi",
+    "payTitle": "№{number} buyurtma to‘lovi",
+    "mockPay": "To‘lash (test)",
+    "alreadyPaid": "Buyurtma allaqachon to‘langan.",
+    "later": "Keyinroq to‘lash",
+    "districts": {
+      "bektemir": "Bektemir tumani",
+      "chilonzor": "Chilonzor tumani",
+      "mirobod": "Mirobod tumani",
+      "mirzoUlugbek": "Mirzo Ulug‘bek tumani",
+      "olmazor": "Olmazor tumani",
+      "sergeli": "Sergeli tumani",
+      "shayxontohur": "Shayxontohur tumani",
+      "uchtepa": "Uchtepa tumani",
+      "yakkasaroy": "Yakkasaroy tumani",
+      "yashnobod": "Yashnobod tumani",
+      "yunusobod": "Yunusobod tumani",
+      "yangihayot": "Yangihayot tumani"
+    }
+  },
+  "account": {
+    "title": "Shaxsiy kabinet",
+    "paid": "To‘lov o‘tdi. Yetkazib berishni kelishish uchun siz bilan bog‘lanamiz.",
+    "orders": "Buyurtmalarim",
+    "noOrders": "Hozircha buyurtmalar yo‘q.",
+    "pay": "To‘lash",
+    "builds": "Saqlangan yig‘malar",
+    "noBuilds": "Konstruktorda yig‘mani saqlang — u shu yerda paydo bo‘ladi.",
+    "parts": "{count} ta qism",
+    "status": {
+      "PENDING": "To‘lov kutilmoqda",
+      "PAID": "To‘langan",
+      "SHIPPED": "Yetkazib berishga topshirildi",
+      "DONE": "Yetkazib berildi",
+      "CANCELLED": "Bekor qilingan"
+    }
   }
 }

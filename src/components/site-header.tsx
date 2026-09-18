@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server'
-import { Cpu, ShoppingCart, User } from 'lucide-react'
+import { Cpu, LogOut, ShoppingCart, User } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { auth, signOut } from '@/lib/auth'
 import { getCart } from '@/lib/cart'
@@ -38,22 +38,36 @@ export async function SiteHeader() {
             )}
           </Link>
           {session?.user ? (
-            <form
-              action={async () => {
-                'use server'
-                await signOut()
-              }}
-            >
-              <button
-                type="submit"
+            <>
+              <Link
+                href="/account"
+                aria-label={t('nav.account')}
                 className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
               >
                 <User className="size-5" />
-                <span className="hidden sm:inline">{t('nav.signOut')}</span>
-              </button>
-            </form>
+                <span className="hidden sm:inline">{t('nav.account')}</span>
+              </Link>
+              <form
+                action={async () => {
+                  'use server'
+                  await signOut()
+                }}
+              >
+                <button
+                  type="submit"
+                  aria-label={t('nav.signOut')}
+                  className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+                >
+                  <LogOut className="size-5" />
+                </button>
+              </form>
+            </>
           ) : (
-            <Link href="/sign-in" className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground">
+            <Link
+              href="/sign-in"
+              aria-label={t('nav.signIn')}
+              className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+            >
               <User className="size-5" />
               <span className="hidden sm:inline">{t('nav.signIn')}</span>
             </Link>
