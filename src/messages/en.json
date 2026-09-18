@@ -145,7 +145,9 @@
     "mm": "mm",
     "mhz": "MHz",
     "ghz": "GHz",
-    "months": "months"
+    "months": "months",
+    "cores": "cores",
+    "tb": "TB"
   },
   "cart": {
     "title": "Cart",
@@ -319,6 +321,22 @@
       "cooler": "CPU cooler",
       "psu": "Power supply",
       "case": "Case"
+    },
+    "conflict": "Conflict",
+    "fits": "Fits",
+    "pickSearch": "Search by name",
+    "pickEmpty": "Nothing found — try another query.",
+    "summary": {
+      "title": "Configuration",
+      "empty": "Pick parts — your PC's configuration line will build up here.",
+      "progress": "{filled} of {total} slots",
+      "watts": "≈ {w} W",
+      "copy": "Copy",
+      "copied": "Copied",
+      "ram": "RAM",
+      "ssdM2": "SSD M.2",
+      "ssd": "SSD",
+      "hdd": "HDD"
     }
   },
   "compat": {

@@ -10,9 +10,9 @@ import type { CameraView, ScenePart } from './build-preview'
 // x — от стенки с материнкой (-) к стеклу (+), y — вверх, z — от тыла (-) к фронту (+).
 type V3 = [number, number, number]
 
-const ACCENT = '#4ade80'
-const CYAN = '#22d3ee'
-const MAGENTA = '#e879f9'
+const ACCENT = '#7aa2ff'
+const CYAN = '#2de0c4'
+const MAGENTA = '#a78bfa'
 const RGB = [ACCENT, CYAN, MAGENTA]
 
 const HX = 1.15 // полуширина корпуса 230 мм
@@ -289,11 +289,12 @@ export default function BuildScene({ parts, view }: { parts: ScenePart[]; view: 
   const isM2 = (p: ScenePart) => (p.storageType ?? 'NVME') === 'NVME'
 
   return (
-    <Canvas dpr={[1, 2]} gl={{ preserveDrawingBuffer: true, antialias: true }} camera={{ position: VIEWS.iso, fov: 40 }}>
-      <color attach="background" args={['#12151d']} />
-      <ambientLight intensity={1.2} />
+    <Canvas dpr={[1, 2]} gl={{ preserveDrawingBuffer: true, antialias: true, alpha: true }} camera={{ position: VIEWS.iso, fov: 40 }}>
+      {/* Фон прозрачный: под сценой — подсветка страницы и цвет темы. */}
+      <ambientLight intensity={1.6} />
+      <hemisphereLight args={['#c7d6ff', '#1a1f2e', 0.9]} />
       {/* основной свет со стороны стекла — иначе внутренности в тени собственных стенок */}
-      <directionalLight position={[8, 6, 4]} intensity={2.2} />
+      <directionalLight position={[8, 6, 4]} intensity={2.8} />
       <directionalLight position={[-3, 5, 8]} intensity={0.8} />
       <pointLight position={[0.3, 0.5, 0]} intensity={4} distance={5} color={ACCENT} />
 

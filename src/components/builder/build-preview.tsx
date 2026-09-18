@@ -34,7 +34,7 @@ export type ScenePart = {
 
 export type CameraView = 'front' | 'side' | 'top' | 'iso'
 
-const BOX = 'aspect-[4/3] w-full rounded-xl border border-border bg-surface'
+const BOX = 'glow aspect-[4/3] w-full rounded-[var(--radius-panel)] border border-border bg-surface'
 const VIEWS: CameraView[] = ['front', 'side', 'top', 'iso']
 const ICONS: Record<ScenePart['slot'], LucideIcon> = {
   cpu: Cpu,

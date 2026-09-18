@@ -145,7 +145,9 @@
     "mm": "mm",
     "mhz": "MGts",
     "ghz": "GGts",
-    "months": "oy"
+    "months": "oy",
+    "cores": "yadro",
+    "tb": "TB"
   },
   "cart": {
     "title": "Savat",
@@ -319,6 +321,22 @@
       "cooler": "Protsessor sovutgichi",
       "psu": "Quvvat bloki",
       "case": "Korpus"
+    },
+    "conflict": "Ziddiyat",
+    "fits": "Mos",
+    "pickSearch": "Nomi bo‘yicha qidirish",
+    "pickEmpty": "Hech narsa topilmadi — so‘rovni o‘zgartiring.",
+    "summary": {
+      "title": "Konfiguratsiya",
+      "empty": "Qismlarni tanlang — bu yerda kompyuteringiz konfiguratsiyasi paydo bo‘ladi.",
+      "progress": "{total} tadan {filled} ta slot",
+      "watts": "≈ {w} Vt",
+      "copy": "Nusxalash",
+      "copied": "Nusxalandi",
+      "ram": "RAM",
+      "ssdM2": "SSD M.2",
+      "ssd": "SSD",
+      "hdd": "HDD"
     }
   },
   "compat": {

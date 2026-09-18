@@ -9,6 +9,8 @@ import { cn } from '@/lib/cn'
 import { formatUzs } from '@/lib/money'
 import { orderNumber, readSnapshot } from '@/lib/orders'
 import { payOrder } from '../checkout/actions'
+import { isSlot, summaryLabels } from '../builder/build'
+import { buildSummary, summaryLine } from '@/lib/build-summary'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -47,9 +49,16 @@ export default async function AccountPage({ params, searchParams }: Props) {
     db.build.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
-      include: { items: { include: { product: { select: { priceUzs: true } } } } },
+      include: { items: { include: { product: true } } },
     }),
   ])
+  const labels = await summaryLabels(locale)
+  // Строка конфигурации вместо безликого «8 деталей» — сборку узнают по составу.
+  const lineOf = (build: (typeof builds)[number]) =>
+    summaryLine(buildSummary(build.items.flatMap(({ product, qty }) => {
+      const slot = product.category
+      return isSlot(slot) ? Array.from({ length: qty }, () => ({ slot, product })) : []
+    }), labels))
   const date = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeZone: 'Asia/Tashkent' })
   const error = typeof query.error === 'string' && ERRORS.includes(query.error) ? query.error : undefined
 
@@ -116,7 +125,7 @@ export default async function AccountPage({ params, searchParams }: Props) {
             <li key={build.id}>
               <Link href={`/builder/${build.shareId}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3 hover:text-accent">
                 <span>{date.format(build.createdAt)}</span>
-                <span className="text-muted">{t('parts', { count: build.items.reduce((n, i) => n + i.qty, 0) })}</span>
+                <span className="basis-full text-muted order-last">{lineOf(build) || t('parts', { count: build.items.reduce((n, i) => n + i.qty, 0) })}</span>
                 <span className="ml-auto tabular-nums">
                   {formatUzs(build.items.reduce((sum, i) => sum + i.product.priceUzs * i.qty, 0), locale)}
                 </span>

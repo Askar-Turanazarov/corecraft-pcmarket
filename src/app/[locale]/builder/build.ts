@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import { db } from '@/lib/db'
 import { SLOTS, type Build, type Slot } from '@/lib/compat'
 
@@ -56,4 +57,16 @@ export async function loadBuild(slugs: BuildSlugs) {
     }
   }
   return { build, items }
+}
+
+/** Подписи строки конфигурации на языке страницы. */
+export async function summaryLabels(locale: string) {
+  const [t, u] = await Promise.all([
+    getTranslations({ locale, namespace: 'builder.summary' }),
+    getTranslations({ locale, namespace: 'units' }),
+  ])
+  return {
+    ghz: u('ghz'), gb: u('gb'), mhz: u('mhz'), w: u('w'),
+    ram: t('ram'), ssdM2: t('ssdM2'), ssd: t('ssd'), hdd: t('hdd'),
+  }
 }
