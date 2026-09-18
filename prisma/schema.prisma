@@ -1,0 +1,211 @@
+// CoreCraft PC — схема данных.
+// Локально SQLite; коннектор Prisma к SQLite не поддерживает enum и Json,
+// поэтому перечисления и структурированные данные хранятся строками.
+// Такая схема без изменений переносится на PostgreSQL.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─────────────────────────── Каталог ───────────────────────────
+
+model Product {
+  id        String  @id @default(cuid())
+  slug      String  @unique
+  kind      String // COMPONENT | PREBUILT | LAPTOP | PERIPHERAL
+  category  String // cpu | gpu | motherboard | ram | storage | psu | case | cooler | ...
+  brand     String
+  model     String
+
+  nameRu String
+  nameUz String
+  nameEn String
+
+  descRu String?
+  descUz String?
+  descEn String?
+
+  priceUzs Int // целые сумы: деньги не храним в плавающей точке
+  oldPriceUzs Int?
+  stock    Int     @default(0)
+  images   String  @default("[]") // JSON-массив URL
+  isActive Boolean @default(true)
+
+  // Прочие характеристики — JSON-строка, показываются на карточке товара.
+  specs String @default("{}")
+
+  // ─── Поля, которые читают движки совместимости и FPS ───
+  socket      String? // CPU, материнская плата, крепление кулера
+  formFactor  String? // ATX | MATX | ITX — плата; для корпуса см. supportsFormFactors
+  chipset     String?
+  memoryType  String? // DDR4 | DDR5
+  memorySlots Int?
+  memoryGb    Int? // объём одного комплекта RAM
+  memoryMhz   Int?
+  memorySticks Int? // число планок в комплекте — важно для двухканала
+  tdpW        Int? // CPU, GPU
+  wattage     Int? // БП
+  lengthMm    Int? // длина видеокарты; для корпуса — максимум
+  heightMm    Int? // высота кулера; для корпуса — максимум
+  vramGb      Int?
+  coreCount   Int?
+  boostGhz    Float?
+  storageGb   Int?
+  storageType String? // NVME | SATA_SSD | HDD
+  coolerType  String? // AIR | AIO
+  coolerTdpW  Int? // сколько ватт отводит кулер
+  radiatorMm  Int? // размер радиатора СЖО
+  has12vhpwr  Boolean? // разъём питания 12VHPWR у БП
+  m2Slots     Int?
+  sataPorts   Int?
+  pcieVersion String?
+
+  // Списки возможностей корпуса/платы — JSON-массивы строк
+  supportsFormFactors String? // корпус: ["ATX","MATX","ITX"]
+  supportsRadiators   String? // корпус: [240,280,360]
+  supportsSockets     String? // кулер: ["AM5","LGA1700"]
+
+  // Индексы производительности для модели FPS (RTX 4090 ≈ 100)
+  gpuScore Float?
+  cpuScore Float?
+
+  buildItems BuildItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([kind, category, isActive])
+  @@index([category, priceUzs])
+}
+
+// ─────────────────────────── Игры ───────────────────────────
+
+model Game {
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  titleRu  String
+  titleUz  String
+  titleEn  String
+  year     Int
+  engine   String?
+  genre    String?
+  coverUrl String?
+
+  // Нагрузка на GPU по пресетам графики (больше — тяжелее)
+  demandLow    Float
+  demandMedium Float
+  demandHigh   Float
+  demandUltra  Float
+
+  // Нагрузка на CPU — почти не зависит от разрешения
+  cpuDemand Float
+
+  // Сколько видеопамяти нужно на каждом пресете, ГБ
+  vramLow    Float
+  vramMedium Float
+  vramHigh   Float
+  vramUltra  Float
+
+  rtCost            Float   @default(1.6) // во сколько раз дороже с трассировкой лучей
+  supportsRt        Boolean @default(false)
+  supportsUpscaling Boolean @default(true)
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, year])
+}
+
+// ─────────────────────────── Пользователи ───────────────────────────
+
+model User {
+  id           String  @id @default(cuid())
+  email        String? @unique
+  passwordHash String?
+  telegramId   String? @unique
+  name         String?
+  avatarUrl    String?
+  phone        String?
+  role         String  @default("USER") // USER | ADMIN
+  locale       String  @default("ru")
+
+  builds Build[]
+  orders Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+// ─────────────────────────── Сборки ───────────────────────────
+
+model Build {
+  id      String  @id @default(cuid())
+  shareId String  @unique @default(cuid()) // публичная ссылка на сборку
+  userId  String?
+  name    String  @default("Моя сборка")
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  items BuildItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model BuildItem {
+  id        String  @id @default(cuid())
+  buildId   String
+  productId String
+  qty       Int     @default(1)
+  build     Build   @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([buildId, productId])
+  @@index([productId])
+}
+
+// ─────────────────────────── Заказы ───────────────────────────
+
+model Order {
+  id     String  @id @default(cuid())
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Состав заказа фиксируется снимком: цены и названия не должны
+  // поехать, если товар потом отредактируют или удалят.
+  itemsSnapshot String
+  totalUzs      Int
+  status        String @default("PENDING") // PENDING | PAID | SHIPPED | DONE | CANCELLED
+
+  customerName String
+  phone        String
+  address      String
+  comment      String?
+
+  // Идемпотентность вебхука Telegram: повтор доставки не создаст вторую оплату.
+  telegramChargeId String? @unique
+  paidAt           DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+// ─────────────────────────── Настройки ───────────────────────────
+
+// Правятся в админке без изменения кода: курс доллара, константы модели FPS.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

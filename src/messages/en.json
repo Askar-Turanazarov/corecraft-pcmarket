@@ -1,0 +1,38 @@
+{
+  "brand": { "name": "CoreCraft PC", "tagline": "PC parts and custom builds in Tashkent" },
+  "nav": {
+    "catalog": "Catalog",
+    "builder": "PC Builder",
+    "fps": "FPS Calculator",
+    "cart": "Cart",
+    "account": "Account",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "home": {
+    "title": "Build your own PC",
+    "subtitle": "Pick your parts, keep them compatible, and see how many frames the build will push in your games.",
+    "ctaBuilder": "Open the builder",
+    "ctaCatalog": "Browse the catalog"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "submitSignIn": "Sign in",
+    "submitSignUp": "Create account",
+    "telegram": "Continue with Telegram",
+    "haveAccount": "Already have an account?",
+    "noAccount": "No account yet?",
+    "invalidCredentials": "Wrong email or password",
+    "emailTaken": "That email is already registered"
+  },
+  "common": {
+    "approxUsd": "≈ {amount}",
+    "loading": "Loading…",
+    "error": "Something went wrong"
+  },
+  "footer": { "city": "Tashkent, Uzbekistan", "rights": "All rights reserved" }
+}

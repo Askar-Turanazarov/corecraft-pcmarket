@@ -1,0 +1,38 @@
+{
+  "brand": { "name": "CoreCraft PC", "tagline": "Toshkentda kompyuter butlovchi qismlari va yig'uv" },
+  "nav": {
+    "catalog": "Katalog",
+    "builder": "PK konstruktori",
+    "fps": "FPS hisobi",
+    "cart": "Savat",
+    "account": "Kabinet",
+    "signIn": "Kirish",
+    "signOut": "Chiqish"
+  },
+  "home": {
+    "title": "O'z kompyuteringizni yig'ing",
+    "subtitle": "Butlovchi qismlarni tanlang, moslikni kuzating va yig'ilma o'yinlaringizda qancha kadr berishini ko'ring.",
+    "ctaBuilder": "Konstruktorni ochish",
+    "ctaCatalog": "Katalogni ko'rish"
+  },
+  "auth": {
+    "signInTitle": "Kirish",
+    "signUpTitle": "Ro'yxatdan o'tish",
+    "email": "Elektron pochta",
+    "password": "Parol",
+    "name": "Ism",
+    "submitSignIn": "Kirish",
+    "submitSignUp": "Hisob yaratish",
+    "telegram": "Telegram orqali kirish",
+    "haveAccount": "Hisobingiz bormi?",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "invalidCredentials": "Pochta yoki parol noto'g'ri",
+    "emailTaken": "Bu pochta allaqachon ro'yxatdan o'tgan"
+  },
+  "common": {
+    "approxUsd": "≈ {amount}",
+    "loading": "Yuklanmoqda…",
+    "error": "Nimadir xato ketdi"
+  },
+  "footer": { "city": "Toshkent, O'zbekiston", "rights": "Barcha huquqlar himoyalangan" }
+}
