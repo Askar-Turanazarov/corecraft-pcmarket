@@ -4,19 +4,26 @@ import { revalidatePath } from 'next/cache'
 import { readCart, writeCart, mergeLine } from '@/lib/cart'
 import { db } from '@/lib/db'
 
-export async function addToCart(productId: string, qty = 1) {
-  // Наличие проверяем на сервере: клиент мог прислать что угодно.
-  const product = await db.product.findUnique({
-    where: { id: productId },
-    select: { id: true, stock: true, isActive: true },
-  })
-  if (!product?.isActive || product.stock < 1) return
+export async function addToCart(productId: string) {
+  await addManyToCart([productId])
+}
 
-  const lines = await readCart()
-  const current = lines.find((l) => l.productId === productId)?.qty ?? 0
-  await writeCart(
-    mergeLine(lines, productId, Math.min(current + qty, product.stock)),
-  )
+/** По одной штуке каждого id; повтор id — ещё одна штука (два одинаковых SSD в сборке). */
+export async function addManyToCart(productIds: string[]) {
+  // Наличие проверяем на сервере: клиент мог прислать что угодно.
+  const products = await db.product.findMany({
+    where: { id: { in: productIds }, isActive: true, stock: { gt: 0 } },
+    select: { id: true, stock: true },
+  })
+
+  let lines = await readCart()
+  for (const id of productIds) {
+    const product = products.find((p) => p.id === id)
+    if (!product) continue
+    const current = lines.find((l) => l.productId === id)?.qty ?? 0
+    lines = mergeLine(lines, id, Math.min(current + 1, product.stock))
+  }
+  await writeCart(lines)
   revalidatePath('/', 'layout')
 }
 
