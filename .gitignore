@@ -59,6 +59,11 @@ AGENTS.md
 CLAUDE.md
 *.local.*
 
+# личные отчёты и заметки — в репозиторий не идут
+PROGRESS.md
+NOTES.md
+REPORT*.md
+
 # временные файлы и черновые скрипты
 /scratch/
 /tmp/
