@@ -287,5 +287,63 @@
     "pause": "Pauza",
     "timeline": "Yig‘ish bosqichlari",
     "step": "{total} tadan {n}-qadam"
+  },
+  "fps": {
+    "title": "FPS hisoblash",
+    "disclaimer": "Bu komplektlovchilarning nisbiy unumdorligi bo‘yicha taxmin, o‘lchov emas. Haqiqiy FPS sahna, drayverlar va o‘yin versiyasiga bog‘liq.",
+    "cpu": "Protsessor",
+    "gpu": "Videokarta",
+    "ram": "Operativ xotira",
+    "ramAny": "Hisobga olmaslik",
+    "resolution": "Ruxsat",
+    "res": {
+      "1080p": "1920×1080 (Full HD)",
+      "1440p": "2560×1440 (QHD)",
+      "4k": "3840×2160 (4K)"
+    },
+    "preset": "Grafika sozlamalari",
+    "presets": {
+      "low": "Past",
+      "medium": "O‘rta",
+      "high": "Yuqori",
+      "ultra": "Ultra"
+    },
+    "upscaling": "DLSS / FSR",
+    "up": {
+      "off": "O‘chirilgan",
+      "quality": "Sifat",
+      "balanced": "Muvozanat",
+      "performance": "Unumdorlik"
+    },
+    "compare": "Boshqa konfiguratsiya bilan solishtirish",
+    "cpu2": "Solishtirish uchun protsessor",
+    "gpu2": "Solishtirish uchun videokarta",
+    "same": "Yuqoridagi bilan bir xil",
+    "rt": "Nur kuzatuvi (ray tracing)",
+    "calculate": "Hisoblash",
+    "average": "Barcha o‘yinlar bo‘yicha o‘rtacha FPS: {fps}",
+    "averageB": "Ikkinchi konfiguratsiyada: {fps}",
+    "game": "O‘yin",
+    "fpsCol": "FPS taxmini",
+    "configA": "1-konfiguratsiya",
+    "configB": "2-konfiguratsiya",
+    "noRt": "nur kuzatuvisiz",
+    "warningsHint": "Sariq rang bilan yig‘mani nimadir cheklayotgan o‘yinlar belgilangan — sababini ko‘rish uchun belgiga olib boring.",
+    "low1": "1% low: {fps}",
+    "bound": {
+      "gpu": "videokarta chegarasi",
+      "cpu": "protsessor chegarasi",
+      "balanced": "muvozanatli"
+    },
+    "warnings": {
+      "vramShort": "Bu sozlamalarda videoxotira yetmaydi",
+      "ramLow": "16 GB dan kam operativ xotira",
+      "ramSingleChannel": "Xotira bir kanalli rejimda",
+      "ramSlow": "Sekin operativ xotira",
+      "hddSystem": "O‘yin HDD da — yuklanishlar va qotishlar bo‘lishi mumkin"
+    },
+    "widgetTitle": "O‘yinlarda FPS",
+    "widgetHint": "Yuqori sozlamalar, nur kuzatuvisiz. Taxminni ko‘rish uchun protsessor va videokartani tanlang.",
+    "widgetMore": "Barcha o‘yinlar va sozlamalar"
   }
 }

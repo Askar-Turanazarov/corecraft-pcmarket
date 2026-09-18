@@ -287,5 +287,63 @@
     "pause": "Pause",
     "timeline": "Assembly timeline",
     "step": "Step {n} of {total}"
+  },
+  "fps": {
+    "title": "FPS Calculator",
+    "disclaimer": "This is an estimate based on relative part performance, not a measurement. Real FPS depends on the scene, drivers and game version.",
+    "cpu": "Processor",
+    "gpu": "Graphics card",
+    "ram": "Memory",
+    "ramAny": "Ignore",
+    "resolution": "Resolution",
+    "res": {
+      "1080p": "1920×1080 (Full HD)",
+      "1440p": "2560×1440 (QHD)",
+      "4k": "3840×2160 (4K)"
+    },
+    "preset": "Graphics preset",
+    "presets": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "ultra": "Ultra"
+    },
+    "upscaling": "DLSS / FSR",
+    "up": {
+      "off": "Off",
+      "quality": "Quality",
+      "balanced": "Balanced",
+      "performance": "Performance"
+    },
+    "compare": "Compare with another configuration",
+    "cpu2": "Processor to compare",
+    "gpu2": "Graphics card to compare",
+    "same": "Same as above",
+    "rt": "Ray tracing",
+    "calculate": "Calculate",
+    "average": "Average FPS across all games: {fps}",
+    "averageB": "Second configuration: {fps}",
+    "game": "Game",
+    "fpsCol": "Estimated FPS",
+    "configA": "Configuration 1",
+    "configB": "Configuration 2",
+    "noRt": "no ray tracing",
+    "warningsHint": "Games marked in yellow have something limiting the build — hover the icon to see why.",
+    "low1": "1% low: {fps}",
+    "bound": {
+      "gpu": "GPU-bound",
+      "cpu": "CPU-bound",
+      "balanced": "balanced"
+    },
+    "warnings": {
+      "vramShort": "Not enough VRAM for these settings",
+      "ramLow": "Less than 16 GB of memory",
+      "ramSingleChannel": "Memory runs in single channel",
+      "ramSlow": "Slow memory",
+      "hddSystem": "Game on an HDD — expect loading stutter"
+    },
+    "widgetTitle": "FPS in games",
+    "widgetHint": "High preset, no ray tracing. Choose a processor and a graphics card to see the estimate.",
+    "widgetMore": "All games and settings"
   }
 }

@@ -12,6 +12,8 @@ import { CategoryIcon } from '@/components/shop/category-icon'
 import { productName } from '@/components/shop/localized'
 import { Price } from '@/components/shop/price'
 import { BuildPreview, type ScenePart } from '@/components/builder/build-preview'
+import { FpsWidget } from '@/components/fps/fps-widget'
+import { rigFromParts } from '@/lib/fps'
 import { MAX_STORAGE, builderHref, isSlot, loadBuild, readBuildSlugs } from './build'
 import { addBuildToCart, saveBuild } from './actions'
 
@@ -64,6 +66,15 @@ export default async function BuilderPage({ params, searchParams }: Props) {
   // Абсолютная ссылка для «поделиться» — с того же хоста, на котором открыт магазин.
   const h = await headers()
   const origin = `${h.get('x-forwarded-proto') ?? 'http'}://${h.get('host')}`
+
+  // Для модели FPS; системный диск — первый выбранный накопитель.
+  const productIn = (slot: Slot) => items.find((i) => i.slot === slot)?.product
+  const rig = rigFromParts({ cpu: productIn('cpu'), gpu: productIn('gpu'), ram: productIn('ram'), drive: productIn('storage') })
+  const fpsParams = new URLSearchParams()
+  for (const slot of ['cpu', 'gpu', 'ram'] as const) {
+    const slug = productIn(slot)?.slug
+    if (slug) fpsParams.set(slot, slug)
+  }
 
   const sceneParts: ScenePart[] = ASSEMBLY.flatMap((slot) =>
     items
@@ -227,6 +238,8 @@ export default async function BuilderPage({ params, searchParams }: Props) {
               {t('power', { w: compat.powerEstimateW, psu: compat.recommendedPsuW })}
             </p>
           </div>
+
+          <FpsWidget rig={rig} locale={locale} fpsHref={`/fps?${fpsParams}`} />
 
           <div className="rounded-xl border border-border bg-surface p-4">
             <p className="text-sm text-muted">{t('total')}</p>
