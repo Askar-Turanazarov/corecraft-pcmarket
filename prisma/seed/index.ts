@@ -2,6 +2,7 @@ import 'dotenv/config'
 import bcrypt from 'bcryptjs'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '../../src/generated/prisma/client'
+import { components } from './components'
 
 const db = new PrismaClient({
   adapter: new PrismaBetterSqlite3({ url: process.env.DATABASE_URL! }),
@@ -35,7 +36,19 @@ async function main() {
     update: { role: 'ADMIN' },
   })
 
-  console.log(`seed: настройки записаны, администратор ${email} готов`)
+  // Ключ — slug: повторный запуск сида обновляет цены и остатки,
+  // а не плодит дубликаты.
+  for (const product of components) {
+    await db.product.upsert({
+      where: { slug: product.slug },
+      create: product,
+      update: product,
+    })
+  }
+
+  console.log(
+    `seed: настройки записаны, администратор ${email} готов, товаров в каталоге ${await db.product.count()}`,
+  )
 }
 
 main()

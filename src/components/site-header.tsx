@@ -2,11 +2,12 @@ import { getTranslations } from 'next-intl/server'
 import { Cpu, ShoppingCart, User } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { auth, signOut } from '@/lib/auth'
+import { getCart } from '@/lib/cart'
 import { LocaleSwitcher } from './locale-switcher'
 
 export async function SiteHeader() {
   const t = await getTranslations()
-  const session = await auth()
+  const [session, cart] = await Promise.all([auth(), getCart()])
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
@@ -24,8 +25,17 @@ export async function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-3">
           <LocaleSwitcher />
-          <Link href="/cart" aria-label={t('nav.cart')} className="text-muted hover:text-foreground">
+          <Link
+            href="/cart"
+            aria-label={t('nav.cart')}
+            className="relative text-muted hover:text-foreground"
+          >
             <ShoppingCart className="size-5" />
+            {cart.count > 0 && (
+              <span className="absolute -right-2 -top-1.5 min-w-4 rounded-full bg-accent px-1 text-center text-[10px] font-semibold leading-4 text-background">
+                {cart.count}
+              </span>
+            )}
           </Link>
           {session?.user ? (
             <form
