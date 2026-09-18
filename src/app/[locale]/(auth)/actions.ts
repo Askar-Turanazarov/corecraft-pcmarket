@@ -7,12 +7,18 @@ import { db } from '@/lib/db'
 
 export type AuthState = { error?: string } | null
 
+// Только путь внутри сайта: «//evil.com» и полные URL превратили бы вход в открытый редирект.
+function safeNext(value: FormDataEntryValue | null): string {
+  const next = value?.toString() ?? ''
+  return /^\/(?![/\\])/.test(next) ? next : '/'
+}
+
 export async function signInAction(_: AuthState, form: FormData): Promise<AuthState> {
   try {
     await signIn('password', {
       email: form.get('email'),
       password: form.get('password'),
-      redirectTo: form.get('next')?.toString() || '/',
+      redirectTo: safeNext(form.get('next')),
     })
     return null
   } catch (error) {
@@ -23,7 +29,7 @@ export async function signInAction(_: AuthState, form: FormData): Promise<AuthSt
 }
 
 export async function signUpAction(_: AuthState, form: FormData): Promise<AuthState> {
-  const parsed = credentialsSchema.extend({}).safeParse({
+  const parsed = credentialsSchema.safeParse({
     email: form.get('email'),
     password: form.get('password'),
   })

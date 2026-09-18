@@ -10,6 +10,8 @@ export type TelegramLoginData = {
   hash: string
 }
 
+const WIDGET_FIELDS = ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date'] as const
+
 /** Данные виджета живут сутки — дальше их считаем протухшими. */
 const MAX_AGE_SECONDS = 86400
 
@@ -22,11 +24,11 @@ export function verifyTelegramLogin(
   data: TelegramLoginData,
   botToken: string,
 ): boolean {
-  const { hash, ...fields } = data
-
-  const checkString = Object.keys(fields)
+  const { hash } = data
+  // Только поля виджета: Auth.js кладёт рядом csrfToken, callbackUrl и т.п., они в подпись не входят.
+  const checkString = WIDGET_FIELDS.filter((key) => data[key])
     .sort()
-    .map((key) => `${key}=${fields[key as keyof typeof fields]}`)
+    .map((key) => `${key}=${data[key]}`)
     .join('\n')
 
   const secret = createHash('sha256').update(botToken).digest()

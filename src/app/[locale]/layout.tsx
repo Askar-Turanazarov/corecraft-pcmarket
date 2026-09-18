@@ -19,7 +19,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'brand' })
-  return { title: t('name'), description: t('tagline') }
+  return {
+    metadataBase: new URL(process.env.AUTH_URL ?? 'http://localhost:3000'),
+    // «Видеокарта RTX 4070 — CoreCraft PC»: бренд в каждом заголовке вкладки и выдачи.
+    title: { default: t('name'), template: `%s — ${t('name')}` },
+    description: t('tagline'),
+    openGraph: { siteName: t('name'), locale, type: 'website' },
+  }
 }
 
 export default async function LocaleLayout({

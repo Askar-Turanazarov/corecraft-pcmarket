@@ -47,13 +47,8 @@ export default async function CatalogPage({
 
   const base = {
     isActive: true,
-    ...(search && {
-      OR: [
-        { nameRu: { contains: search } },
-        { nameUz: { contains: search } },
-        { nameEn: { contains: search } },
-      ],
-    }),
+    // searchText уже в нижнем регистре — так поиск не зависит от регистра и для кириллицы.
+    ...(search && { searchText: { contains: search.toLowerCase() } }),
     ...((minPrice !== undefined || maxPrice !== undefined) && {
       priceUzs: {
         ...(minPrice !== undefined && { gte: minPrice }),
@@ -67,7 +62,8 @@ export default async function CatalogPage({
     db.product.count({ where }),
     db.product.findMany({
       where,
-      orderBy: orderBy(query.sort, locale as Locale),
+      // id — второй ключ: при равных ценах страницы не должны терять и дублировать товары.
+      orderBy: [orderBy(query.sort, locale as Locale), { id: 'asc' }],
       skip: (page - 1) * PER_PAGE,
       take: PER_PAGE,
     }),
@@ -85,6 +81,18 @@ export default async function CatalogPage({
       orderBy: { brand: 'asc' },
     }),
   ])
+
+  // Средняя оценка только для товаров текущей страницы.
+  const ratings = await db.review.groupBy({
+    by: ['productId'],
+    where: { productId: { in: products.map((p) => p.id) } },
+    _avg: { rating: true },
+    _count: { _all: true },
+  })
+  const ratingOf = (id: string) => {
+    const row = ratings.find((r) => r.productId === id)
+    return row ? { avg: row._avg.rating ?? 0, count: row._count._all } : undefined
+  }
 
   const pages = Math.max(1, Math.ceil(total / PER_PAGE))
 
@@ -118,7 +126,7 @@ export default async function CatalogPage({
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} locale={locale as Locale} />
+                <ProductCard key={product.id} product={product} locale={locale as Locale} rating={ratingOf(product.id)} />
               ))}
             </div>
           )}

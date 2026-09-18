@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { Trash2 } from 'lucide-react'
+import { Minus, Plus, Trash2 } from 'lucide-react'
 import type { Locale } from '@/i18n/routing'
 import { Link } from '@/i18n/navigation'
 import { getCart } from '@/lib/cart'
@@ -39,7 +39,7 @@ export default async function CartPage({
 
       <ul className="mt-8 divide-y divide-border border-y border-border">
         {cart.items.map(({ product, qty }) => (
-          <li key={product.id} className="flex items-center gap-4 py-4">
+          <li key={product.id} className="flex flex-wrap items-center gap-4 py-4">
             <div className="flex size-16 shrink-0 items-center justify-center rounded-lg bg-surface">
               <CategoryIcon category={product.category} className="size-6 text-muted" />
             </div>
@@ -62,26 +62,34 @@ export default async function CartPage({
                 'use server'
                 await setCartQty(product.id, Number(form.get('qty')))
               }}
+              className="flex items-center rounded-lg border border-border"
             >
-              <label className="sr-only" htmlFor={`qty-${product.id}`}>
-                {t('quantity')}
-              </label>
-              <input
-                id={`qty-${product.id}`}
+              {/* Две кнопки одной формы: значение приходит от нажатой. */}
+              <button
+                type="submit"
                 name="qty"
-                type="number"
-                min={1}
-                max={Math.max(product.stock, 1)}
-                defaultValue={qty}
-                className="w-16 rounded-lg border border-border bg-surface px-2 py-1.5 text-center outline-none focus:border-accent"
-              />
-              {/* Отправка по Enter; кнопка скрыта, но нужна для доступности. */}
-              <button type="submit" className="sr-only">
-                {t('update')}
+                value={qty - 1}
+                aria-label={t('decrease')}
+                className="px-2.5 py-1.5 text-muted hover:text-foreground"
+              >
+                <Minus className="size-4" />
+              </button>
+              <span className="w-8 text-center tabular-nums" aria-label={t('quantity')}>
+                {qty}
+              </span>
+              <button
+                type="submit"
+                name="qty"
+                value={qty + 1}
+                disabled={qty >= product.stock}
+                aria-label={t('increase')}
+                className="px-2.5 py-1.5 text-muted hover:text-foreground disabled:opacity-40"
+              >
+                <Plus className="size-4" />
               </button>
             </form>
 
-            <Price amountUzs={product.priceUzs * qty} locale={locale} className="w-40 text-right" />
+            <Price amountUzs={product.priceUzs * qty} locale={locale} className="ml-auto text-right sm:w-40" />
 
             <form
               action={async () => {

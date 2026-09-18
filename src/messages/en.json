@@ -10,13 +10,30 @@
     "cart": "Cart",
     "account": "Account",
     "signIn": "Sign in",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "compare": "Compare ({count})",
+    "main": "Main menu"
   },
   "home": {
     "title": "Build your own PC",
     "subtitle": "Pick your parts, keep them compatible, and see how many frames the build will push in your games.",
     "ctaBuilder": "Open the builder",
-    "ctaCatalog": "Browse the catalog"
+    "ctaCatalog": "Browse the catalog",
+    "categories": "Categories",
+    "features": {
+      "builder": {
+        "title": "3D PC builder",
+        "text": "Build a PC slot by slot: incompatible parts are flagged instantly and the build takes shape in 3D."
+      },
+      "fps": {
+        "title": "FPS before you buy",
+        "text": "Frame estimates in 50 games at any settings — see whether the build is CPU- or GPU-bound."
+      },
+      "telegram": {
+        "title": "Pay in Telegram",
+        "text": "An invoice in so‘m right in Telegram via Click or Payme, delivery across Tashkent."
+      }
+    }
   },
   "auth": {
     "signInTitle": "Sign in",
@@ -30,7 +47,8 @@
     "haveAccount": "Already have an account?",
     "noAccount": "No account yet?",
     "invalidCredentials": "Wrong email or password",
-    "emailTaken": "That email is already registered"
+    "emailTaken": "That email is already registered",
+    "orTelegram": "Or sign in with Telegram:"
   },
   "catalog": {
     "title": "Catalog",
@@ -74,7 +92,8 @@
       "headset": "Headsets",
       "laptop": "Laptops",
       "prebuilt": "Prebuilt PCs"
-    }
+    },
+    "rating": "Rated {avg} of 5"
   },
   "product": {
     "brand": "Brand",
@@ -84,7 +103,10 @@
     "description": "Description",
     "noDescription": "No description yet",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "compare": "Compare",
+    "inCompare": "In comparison",
+    "openCompare": "Open comparison"
   },
   "spec": {
     "socket": "Socket",
@@ -113,7 +135,9 @@
     "pcieVersion": "PCIe version",
     "supportsFormFactors": "Supported form factors",
     "supportsRadiators": "Supported radiators",
-    "supportsSockets": "Supported sockets"
+    "supportsSockets": "Supported sockets",
+    "lengthMmCase": "Max GPU length",
+    "heightMmCase": "Max cooler height"
   },
   "units": {
     "w": "W",
@@ -134,7 +158,8 @@
     "continue": "Continue shopping",
     "outOfStock": "Out of stock",
     "add": "Add to cart",
-    "update": "Update quantity"
+    "decrease": "Decrease",
+    "increase": "Increase"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -198,12 +223,278 @@
     "warranty": "Warranty",
     "wifi": "Wi-Fi",
     "write": "Write speed",
-    "xeCores": "Xe cores"
+    "xeCores": "Xe cores",
+    "gpuVendor": "Graphics vendor",
+    "cpu": "Processor",
+    "gpu": "Graphics card",
+    "ram": "Memory",
+    "storage": "Storage",
+    "motherboard": "Motherboard",
+    "psu": "Power supply",
+    "case": "Case",
+    "os": "Operating system",
+    "screen": "Screen",
+    "resolution": "Resolution",
+    "refreshRate": "Refresh rate",
+    "battery": "Battery",
+    "weight": "Weight",
+    "diagonal": "Screen size",
+    "panel": "Panel type",
+    "responseTime": "Response time",
+    "brightness": "Brightness",
+    "hdr": "HDR",
+    "adaptiveSync": "Adaptive sync",
+    "ports": "Ports",
+    "layout": "Layout",
+    "switches": "Switches",
+    "keycaps": "Keycaps",
+    "connection": "Connection",
+    "backlight": "Backlight",
+    "pollingRate": "Polling rate",
+    "sensor": "Sensor",
+    "dpi": "Max DPI",
+    "buttons": "Buttons",
+    "driver": "Driver",
+    "frequencyResponse": "Frequency response",
+    "detachableMic": "Detachable microphone",
+    "surround": "Surround sound",
+    "anc": "Active noise cancelling"
   },
   "specValue": {
     "no": "No",
     "full": "Full",
     "partial": "Partial",
-    "lifetime": "Lifetime"
+    "lifetime": "Lifetime",
+    "yes": "Yes",
+    "steel": "steel",
+    "mesh": "mesh",
+    "temperedGlass": "tempered glass",
+    "temperedGlass3": "tempered glass on three sides",
+    "soundDampening": "sound dampening",
+    "walnut": "natural walnut",
+    "aluminum": "aluminium",
+    "lowProfile": "low profile",
+    "tempDisplay": "digital temperature display",
+    "AIR": "air",
+    "AIO": "liquid (AIO)",
+    "NVME": "NVMe SSD",
+    "SATA_SSD": "SATA SSD",
+    "HDD": "HDD",
+    "MATX": "Micro-ATX",
+    "ITX": "Mini-ITX"
+  },
+  "builder": {
+    "title": "PC Builder",
+    "subtitle": "Pick parts slot by slot — we flag anything incompatible right away.",
+    "reset": "Start over",
+    "saved": "Build saved. Anyone can open it with this link:",
+    "shareLink": "Build link",
+    "choose": "Choose",
+    "addStorage": "Add a drive",
+    "change": "Change",
+    "remove": "Remove",
+    "outOfStock": "Out of stock",
+    "compatOk": "All parts are compatible",
+    "emptyHint": "Start with a CPU or a graphics card — we will match the rest to them.",
+    "power": "Power draw ≈ {w} W, power supply from {psu} W",
+    "total": "Build total",
+    "addToCart": "Add the whole build to cart",
+    "save": "Save and share",
+    "hasErrors": "The build has incompatible parts — check the list above.",
+    "pickCount": "{category}: {compatible} of {total} fit",
+    "close": "Collapse",
+    "slots": {
+      "cpu": "Processor",
+      "motherboard": "Motherboard",
+      "ram": "Memory",
+      "gpu": "Graphics card",
+      "storage": "Storage",
+      "cooler": "CPU cooler",
+      "psu": "Power supply",
+      "case": "Case"
+    }
+  },
+  "compat": {
+    "socketMismatch": "CPU socket {cpu} does not match the motherboard socket {board}",
+    "ramTypeMismatch": "{ram} memory does not fit: the motherboard supports {board}",
+    "ramTooManySticks": "The kit has {sticks} sticks but the motherboard has {slots} slots",
+    "caseFormFactor": "A {board} motherboard does not fit this case (supports: {supported})",
+    "gpuTooLong": "The graphics card is {gpu} mm long, the case fits up to {max} mm",
+    "coolerTooTall": "The cooler is {cooler} mm tall, the case fits up to {max} mm",
+    "coolerSocket": "The cooler does not support the {socket} socket",
+    "radiatorUnsupported": "The case has no mount for a {radiator} mm radiator",
+    "m2SlotsExceeded": "{count} NVMe drives but only {slots} M.2 slots on the motherboard",
+    "sataPortsExceeded": "{count} SATA drives but only {ports} SATA ports on the motherboard",
+    "psuTooWeak": "The {psu} W power supply is below the estimated {need} W draw",
+    "coolerWeak": "The cooler is rated for {cooler} W while the CPU puts out {cpu} W",
+    "psuMarginal": "The {psu} W power supply has little headroom — we recommend {recommended} W or more",
+    "psuNeeds12vhpwrAdapter": "The {gpu} W graphics card needs 12VHPWR — this PSU lacks it, an adapter is required",
+    "ramSingleChannel": "A single memory stick runs without dual channel",
+    "ramLowCapacity": "Only {gb} GB of memory — we recommend at least {min} GB for gaming"
+  },
+  "scene": {
+    "loading": "Loading 3D preview…",
+    "noWebgl": "3D preview isn't available in this browser (WebGL is off). Installed parts:",
+    "front": "Front",
+    "side": "Side",
+    "top": "Top",
+    "iso": "3/4",
+    "snapshot": "Save PNG",
+    "play": "Play assembly",
+    "pause": "Pause",
+    "timeline": "Assembly timeline",
+    "step": "Step {n} of {total}"
+  },
+  "fps": {
+    "title": "FPS Calculator",
+    "disclaimer": "This is an estimate based on relative part performance, not a measurement. Real FPS depends on the scene, drivers and game version.",
+    "cpu": "Processor",
+    "gpu": "Graphics card",
+    "ram": "Memory",
+    "ramAny": "Ignore",
+    "resolution": "Resolution",
+    "res": {
+      "1080p": "1920×1080 (Full HD)",
+      "1440p": "2560×1440 (QHD)",
+      "4k": "3840×2160 (4K)"
+    },
+    "preset": "Graphics preset",
+    "presets": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "ultra": "Ultra"
+    },
+    "upscaling": "DLSS / FSR",
+    "up": {
+      "off": "Off",
+      "quality": "Quality",
+      "balanced": "Balanced",
+      "performance": "Performance"
+    },
+    "compare": "Compare with another configuration",
+    "cpu2": "Processor to compare",
+    "gpu2": "Graphics card to compare",
+    "same": "Same as above",
+    "rt": "Ray tracing",
+    "calculate": "Calculate",
+    "average": "Average FPS across all games: {fps}",
+    "averageB": "Second configuration: {fps}",
+    "game": "Game",
+    "fpsCol": "Estimated FPS",
+    "configA": "Configuration 1",
+    "configB": "Configuration 2",
+    "noRt": "no ray tracing",
+    "warningsHint": "Games marked in yellow have something limiting the build — hover the icon to see why.",
+    "low1": "1% low: {fps}",
+    "bound": {
+      "gpu": "GPU-bound",
+      "cpu": "CPU-bound",
+      "balanced": "balanced"
+    },
+    "warnings": {
+      "vramShort": "Not enough VRAM for these settings",
+      "ramLow": "Less than 16 GB of memory",
+      "ramSingleChannel": "Memory runs in single channel",
+      "ramSlow": "Slow memory",
+      "hddSystem": "Game on an HDD — expect loading stutter"
+    },
+    "widgetTitle": "FPS in games",
+    "widgetHint": "High preset, no ray tracing. Choose a processor and a graphics card to see the estimate.",
+    "widgetMore": "All games and settings"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "deliveryNote": "We deliver across Tashkent. The courier will call before arriving.",
+    "summary": "Your order",
+    "total": "To pay",
+    "fields": {
+      "name": "Recipient name",
+      "phone": "Phone",
+      "district": "District",
+      "address": "Street, building, apartment",
+      "comment": "Order comment"
+    },
+    "invalid": {
+      "name": "Enter a name",
+      "phone": "Use the +998 XX XXX XX XX format",
+      "district": "Choose a district",
+      "address": "Please give a fuller address"
+    },
+    "chooseDistrict": "Choose a district",
+    "addressPlaceholder": "e.g. 15 Amir Temur St, apt 4",
+    "submit": "Pay with Telegram",
+    "submitMock": "Continue to payment",
+    "processing": "Placing order…",
+    "telegramHint": "A Telegram invoice will open — pay with Click or Payme.",
+    "mockHint": "Test mode: no real money is charged.",
+    "errors": {
+      "emptyCart": "Your cart is empty.",
+      "outOfStock": "Some items ran out — please check your cart.",
+      "tooLarge": "The total exceeds the Telegram limit for one invoice — please split the order.",
+      "notPayable": "This order is already paid or cancelled.",
+      "priceChanged": "Prices changed since you placed the order — please order again."
+    },
+    "mockBadge": "Test payment — no money is charged",
+    "payTitle": "Pay for order №{number}",
+    "mockPay": "Pay (test)",
+    "alreadyPaid": "The order is already paid.",
+    "later": "Pay later",
+    "districts": {
+      "bektemir": "Bektemir district",
+      "chilonzor": "Chilonzor district",
+      "mirobod": "Mirobod district",
+      "mirzoUlugbek": "Mirzo Ulugbek district",
+      "olmazor": "Olmazor district",
+      "sergeli": "Sergeli district",
+      "shayxontohur": "Shaykhontohur district",
+      "uchtepa": "Uchtepa district",
+      "yakkasaroy": "Yakkasaroy district",
+      "yashnobod": "Yashnobod district",
+      "yunusobod": "Yunusobod district",
+      "yangihayot": "Yangihayot district"
+    }
+  },
+  "account": {
+    "title": "My account",
+    "paid": "Payment received. We will contact you to arrange delivery.",
+    "orders": "My orders",
+    "noOrders": "No orders yet.",
+    "pay": "Pay",
+    "builds": "Saved builds",
+    "noBuilds": "Save a build in the PC Builder and it will show up here.",
+    "parts": "{count, plural, one {# part} other {# parts}}",
+    "status": {
+      "PENDING": "Awaiting payment",
+      "PAID": "Paid",
+      "SHIPPED": "Out for delivery",
+      "DONE": "Delivered",
+      "CANCELLED": "Cancelled"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The address may be mistyped, or the product is no longer sold.",
+    "home": "Home",
+    "catalog": "Catalog"
+  },
+  "compare": {
+    "title": "Compare products",
+    "empty": "Add products to compare from a product page — up to four.",
+    "toCatalog": "Go to catalog",
+    "remove": "Remove from comparison",
+    "hint": "Specs that differ are shown in bold."
+  },
+  "reviews": {
+    "title": "Reviews",
+    "summary": "{avg} of 5 · {count, plural, one {# review} other {# reviews}}",
+    "rating": "Rating",
+    "text": "Your review",
+    "submit": "Post review",
+    "update": "Update review",
+    "signIn": "Sign in to leave a review",
+    "none": "No reviews yet — be the first.",
+    "anonymous": "Customer",
+    "stars": "{n} of 5"
   }
 }

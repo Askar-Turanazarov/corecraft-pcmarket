@@ -5,6 +5,7 @@ import type { Locale } from '@/i18n/routing'
 import { CategoryIcon } from './category-icon'
 import { productName } from './localized'
 import { Price } from './price'
+import { Stars } from './reviews'
 
 type Props = {
   product: {
@@ -19,9 +20,10 @@ type Props = {
     nameEn: string
   }
   locale: Locale
+  rating?: { avg: number; count: number }
 }
 
-export async function ProductCard({ product, locale }: Props) {
+export async function ProductCard({ product, locale, rating }: Props) {
   const t = await getTranslations('catalog')
   const inStock = product.stock > 0
 
@@ -43,6 +45,12 @@ export async function ProductCard({ product, locale }: Props) {
         <h3 className="line-clamp-2 text-sm font-medium leading-snug group-hover:text-accent">
           {productName(product, locale)}
         </h3>
+        {rating && (
+          <span className="flex items-center gap-1.5 text-xs text-muted">
+            <Stars value={rating.avg} label={t('rating', { avg: rating.avg.toFixed(1) })} />
+            {rating.count}
+          </span>
+        )}
         <Price
           amountUzs={product.priceUzs}
           oldPriceUzs={product.oldPriceUzs}

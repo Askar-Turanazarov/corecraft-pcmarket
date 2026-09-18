@@ -8,15 +8,17 @@ import type { AuthState } from './actions'
 type Props = {
   mode: 'signIn' | 'signUp'
   action: (state: AuthState, form: FormData) => Promise<AuthState>
+  next?: string
 }
 
-export function AuthForm({ mode, action }: Props) {
+export function AuthForm({ mode, action, next }: Props) {
   const t = useTranslations('auth')
   const [state, formAction, pending] = useActionState(action, null)
   const isSignUp = mode === 'signUp'
 
   return (
     <form action={formAction} className="w-full max-w-sm space-y-4">
+      {next && <input type="hidden" name="next" value={next} />}
       <h1 className="text-2xl font-semibold">
         {isSignUp ? t('signUpTitle') : t('signInTitle')}
       </h1>
@@ -40,7 +42,7 @@ export function AuthForm({ mode, action }: Props) {
       <p className="text-sm text-muted">
         {isSignUp ? t('haveAccount') : t('noAccount')}{' '}
         <Link
-          href={isSignUp ? '/sign-in' : '/sign-up'}
+          href={`${isSignUp ? '/sign-in' : '/sign-up'}${next ? `?next=${encodeURIComponent(next)}` : ''}`}
           className="text-accent hover:underline"
         >
           {isSignUp ? t('submitSignIn') : t('submitSignUp')}

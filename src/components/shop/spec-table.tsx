@@ -55,7 +55,7 @@ function parseJson(raw: unknown): unknown {
   }
 }
 
-function parseObject(raw: unknown): Record<string, unknown> {
+export function parseObject(raw: unknown): Record<string, unknown> {
   const parsed = parseJson(raw)
   if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
     return parsed as Record<string, unknown>
@@ -63,7 +63,8 @@ function parseObject(raw: unknown): Record<string, unknown> {
   return {}
 }
 
-export async function SpecTable({ product }: { product: Record<string, unknown> }) {
+/** Строки «подпись — значение» на языке страницы; их же сводит в таблицу страница сравнения. */
+export async function specRows(product: Record<string, unknown>): Promise<Array<[string, string]>> {
   const t = await getTranslations('spec')
   const tExtra = await getTranslations('specExtra')
   const tValue = await getTranslations('specValue')
@@ -84,7 +85,11 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
 
     // Значения из specs хранятся нейтральными токенами, чтобы переводиться.
     if (typeof value === 'string') {
-      if (tValue.has(value)) return tValue(value)
+      // Списки токенов через запятую («steel,mesh,temperedGlass») переводим поштучно.
+      const tokens = value.split(',')
+      if (tokens.every((token) => tValue.has(token) || token === 'RGB')) {
+        return tokens.map((token) => (tValue.has(token) ? tValue(token) : token)).join(', ')
+      }
       const months = value.match(/^(\d+) months$/)
       if (months) return `${months[1]} ${tUnit('months')}`
     }
@@ -98,7 +103,9 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
     const formatted = format(key, value)
     if (formatted !== null) {
       // Подпись ищем сначала среди полей движков, затем среди свободных specs.
-      const label = t.has(key) ? t(key) : tExtra.has(key) ? tExtra(key) : key
+      // У корпуса длина и высота — это пределы для видеокарты и кулера.
+      const caseKey = product.category === 'case' ? `${key}Case` : key
+      const label = t.has(caseKey) ? t(caseKey) : t.has(key) ? t(key) : tExtra.has(key) ? tExtra(key) : key
       rows.push([label, formatted])
     }
   }
@@ -106,7 +113,11 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
   for (const key of FIELDS) push(key, product[key])
   // Всё, что не поместилось в колонки, лежит JSON-строкой в specs.
   for (const [key, value] of Object.entries(parseObject(product.specs))) push(key, value)
+  return rows
+}
 
+export async function SpecTable({ product }: { product: Record<string, unknown> }) {
+  const [rows, tProduct] = await Promise.all([specRows(product), getTranslations('product')])
   if (rows.length === 0) {
     return <p className="text-sm text-muted">{tProduct('noSpecs')}</p>
   }
