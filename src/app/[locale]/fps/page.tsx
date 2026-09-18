@@ -155,7 +155,7 @@ export default async function FpsPage({ params, searchParams }: Props) {
             <input type="checkbox" name="rt" value="1" defaultChecked={settings.rt} className="size-4 accent-[var(--accent)]" />
             {t('rt')}
           </label>
-          <button type="submit" className="ml-auto rounded-lg bg-accent px-5 py-2 font-medium text-background hover:bg-accent-strong">
+          <button type="submit" className="ml-auto rounded-lg bg-accent px-5 py-2 font-medium text-on-accent hover:bg-accent-strong">
             {t('calculate')}
           </button>
         </div>

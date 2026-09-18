@@ -49,7 +49,7 @@ export function CheckoutForm({ defaultName, mock }: { defaultName: string; mock:
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg bg-accent py-3 font-medium text-background hover:bg-accent-strong disabled:opacity-60"
+        className="w-full rounded-lg bg-accent py-3 font-medium text-on-accent hover:bg-accent-strong disabled:opacity-60"
       >
         {pending ? t('processing') : mock ? t('submitMock') : t('submit')}
       </button>

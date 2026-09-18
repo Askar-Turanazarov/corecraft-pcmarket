@@ -249,7 +249,7 @@ export default async function BuilderPage({ params, searchParams }: Props) {
                 <button
                   type="submit"
                   disabled={items.length === 0}
-                  className="rounded-lg bg-accent px-4 py-2 font-medium text-background hover:bg-accent-strong disabled:opacity-50"
+                  className="rounded-lg bg-accent px-4 py-2 font-medium text-on-accent hover:bg-accent-strong disabled:opacity-50"
                 >
                   {t('addToCart')}
                 </button>

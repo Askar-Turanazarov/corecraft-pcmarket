@@ -34,7 +34,7 @@ export function AuthForm({ mode, action, next }: Props) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg bg-accent py-2.5 font-medium text-background hover:bg-accent-strong disabled:opacity-60"
+        className="w-full rounded-lg bg-accent py-2.5 font-medium text-on-accent hover:bg-accent-strong disabled:opacity-60"
       >
         {isSignUp ? t('submitSignUp') : t('submitSignIn')}
       </button>

@@ -1,7 +1,7 @@
 import type { Locale } from '@/i18n/routing'
 
 /** Курс по умолчанию; фактический берётся из Setting.usdRate в админке. */
-export const DEFAULT_USD_RATE = 11900
+export const DEFAULT_USD_RATE = 11840 // курс ЦБ Узбекистана на 19.09.2026 — 11 839,59
 
 const SUM_SUFFIX: Record<Locale, string> = {
   ru: 'сум',

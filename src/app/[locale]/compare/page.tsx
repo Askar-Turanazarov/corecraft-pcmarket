@@ -35,7 +35,7 @@ export default async function ComparePage({ params }: Props) {
       <section className="mx-auto max-w-3xl px-4 py-24 text-center">
         <h1 className="text-2xl font-semibold">{t('title')}</h1>
         <p className="mt-3 text-muted">{t('empty')}</p>
-        <Link href="/catalog" className="mt-6 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-background hover:bg-accent-strong">
+        <Link href="/catalog" className="mt-6 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-on-accent hover:bg-accent-strong">
           {t('toCatalog')}
         </Link>
       </section>

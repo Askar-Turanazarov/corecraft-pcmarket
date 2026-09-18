@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
+import { Onest, Unbounded } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
@@ -7,6 +9,10 @@ import { routing } from '@/i18n/routing'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import '../globals.css'
+
+// Оба шрифта с кириллицей и расширенной латиницей — для русского и узбекского (oʻ, gʻ).
+const onest = Onest({ subsets: ['latin', 'latin-ext', 'cyrillic'], variable: '--font-onest' })
+const unbounded = Unbounded({ subsets: ['latin', 'latin-ext', 'cyrillic'], variable: '--font-unbounded' })
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -38,9 +44,11 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
+  // Тема из cookie рисуется сервером сразу — без вспышки неверной темы при загрузке.
+  const theme = (await cookies()).get('theme')?.value === 'light' ? 'light' : 'dark'
 
   return (
-    <html lang={locale}>
+    <html lang={locale} data-theme={theme} className={`${onest.variable} ${unbounded.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
         <NextIntlClientProvider>
           <SiteHeader />

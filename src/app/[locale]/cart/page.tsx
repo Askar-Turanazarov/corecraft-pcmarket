@@ -25,7 +25,7 @@ export default async function CartPage({
         <p className="mt-3 text-muted">{t('empty')}</p>
         <Link
           href="/catalog"
-          className="mt-6 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-background hover:bg-accent-strong"
+          className="mt-6 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-on-accent hover:bg-accent-strong"
         >
           {t('emptyCta')}
         </Link>
@@ -119,7 +119,7 @@ export default async function CartPage({
           <Price amountUzs={cart.totalUzs} locale={locale} large />
           <Link
             href="/checkout"
-            className="mt-4 inline-block rounded-lg bg-accent px-6 py-2.5 font-medium text-background hover:bg-accent-strong"
+            className="mt-4 inline-block rounded-lg bg-accent px-6 py-2.5 font-medium text-on-accent hover:bg-accent-strong"
           >
             {t('checkout')}
           </Link>

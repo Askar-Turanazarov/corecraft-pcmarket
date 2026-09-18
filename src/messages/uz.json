@@ -168,7 +168,14 @@
   },
   "footer": {
     "city": "Toshkent, O'zbekiston",
-    "rights": "Barcha huquqlar himoyalangan"
+    "rights": "Barcha huquqlar himoyalangan",
+    "sections": "Do‘kon bo‘limlari",
+    "deliveryTitle": "Toshkent bo‘ylab yetkazish",
+    "deliveryText": "Kuryer buyurtmani 1–2 kunda olib keladi va kelishdan oldin qo‘ng‘iroq qiladi.",
+    "paymentTitle": "Telegramda to‘lov",
+    "paymentText": "So‘mdagi hisob to‘g‘ridan-to‘g‘ri Telegramda — Click yoki Payme orqali.",
+    "warrantyTitle": "Rasmiy kafolat",
+    "warrantyText": "Komplektlovchilarga 12 oydan, yig‘mani jo‘natishdan oldin tekshiramiz."
   },
   "specExtra": {
     "audio": "Audio",
@@ -496,5 +503,9 @@
     "none": "Hozircha sharhlar yo‘q — birinchi bo‘ling.",
     "anonymous": "Xaridor",
     "stars": "5 dan {n}"
+  },
+  "theme": {
+    "dark": "Tungi mavzuni yoqish",
+    "light": "Kunduzgi mavzuni yoqish"
   }
 }

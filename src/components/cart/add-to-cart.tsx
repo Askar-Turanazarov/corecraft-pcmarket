@@ -28,7 +28,7 @@ export async function AddToCart({
         className={cn(
           'flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-medium',
           available
-            ? 'bg-accent text-background hover:bg-accent-strong'
+            ? 'bg-accent text-on-accent hover:bg-accent-strong'
             : 'cursor-not-allowed border border-border text-muted',
           className,
         )}

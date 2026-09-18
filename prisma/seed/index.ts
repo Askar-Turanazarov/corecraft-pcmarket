@@ -16,7 +16,7 @@ const db = new PrismaClient({
 async function main() {
   // Настройки, которые правятся в админке без выката кода.
   const settings = {
-    usdRate: '11900',
+    usdRate: '11840',
     fpsGpuConstant: '60',
     fpsCpuConstant: '60',
   }
@@ -26,6 +26,8 @@ async function main() {
   // Константы FPS до Фазы 4 были заглушками (1350 и 95) — меняем, только если их никто не правил.
   await db.setting.updateMany({ where: { key: 'fpsGpuConstant', value: '1350' }, data: { value: '60' } })
   await db.setting.updateMany({ where: { key: 'fpsCpuConstant', value: '95' }, data: { value: '60' } })
+  // Прежний курс по умолчанию обновляем до курса на сентябрь 2026, если его не меняли в админке.
+  await db.setting.updateMany({ where: { key: 'usdRate', value: '11900' }, data: { value: '11840' } })
 
   const email = process.env.ADMIN_EMAIL
   const password = process.env.ADMIN_PASSWORD

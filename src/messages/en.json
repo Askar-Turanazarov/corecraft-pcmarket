@@ -168,7 +168,14 @@
   },
   "footer": {
     "city": "Tashkent, Uzbekistan",
-    "rights": "All rights reserved"
+    "rights": "All rights reserved",
+    "sections": "Store sections",
+    "deliveryTitle": "Delivery across Tashkent",
+    "deliveryText": "A courier brings your order in 1–2 days and calls before arriving.",
+    "paymentTitle": "Pay in Telegram",
+    "paymentText": "An invoice in so‘m right in Telegram — via Click or Payme.",
+    "warrantyTitle": "Official warranty",
+    "warrantyText": "12 months or more on parts; every build is tested before it ships."
   },
   "specExtra": {
     "audio": "Audio",
@@ -496,5 +503,9 @@
     "none": "No reviews yet — be the first.",
     "anonymous": "Customer",
     "stars": "{n} of 5"
+  },
+  "theme": {
+    "dark": "Switch to dark theme",
+    "light": "Switch to light theme"
   }
 }

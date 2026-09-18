@@ -39,7 +39,7 @@ export default async function MockPayPage({
           <form action={mockPay.bind(null, order.id)} className="mt-6">
             <button
               type="submit"
-              className="w-full rounded-lg bg-accent py-3 font-medium text-background hover:bg-accent-strong"
+              className="w-full rounded-lg bg-accent py-3 font-medium text-on-accent hover:bg-accent-strong"
             >
               {t('mockPay')}
             </button>

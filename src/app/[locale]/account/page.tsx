@@ -97,7 +97,7 @@ export default async function AccountPage({ params, searchParams }: Props) {
               </details>
               {order.status === 'PENDING' && (
                 <form action={payOrder.bind(null, order.id)} className="mt-3">
-                  <button type="submit" className="rounded-lg bg-accent px-4 py-1.5 font-medium text-background hover:bg-accent-strong">
+                  <button type="submit" className="rounded-lg bg-accent px-4 py-1.5 font-medium text-on-accent hover:bg-accent-strong">
                     {t('pay')}
                   </button>
                 </form>

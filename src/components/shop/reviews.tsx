@@ -67,7 +67,7 @@ export async function Reviews({ productId, slug, locale }: { productId: string; 
               className="w-full rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-accent"
             />
           </label>
-          <button type="submit" className="rounded-lg bg-accent px-4 py-2 font-medium text-background hover:bg-accent-strong">
+          <button type="submit" className="rounded-lg bg-accent px-4 py-2 font-medium text-on-accent hover:bg-accent-strong">
             {mine ? t('update') : t('submit')}
           </button>
         </form>
