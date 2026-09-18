@@ -67,7 +67,8 @@ export default async function CatalogPage({
     db.product.count({ where }),
     db.product.findMany({
       where,
-      orderBy: orderBy(query.sort, locale as Locale),
+      // id — второй ключ: при равных ценах страницы не должны терять и дублировать товары.
+      orderBy: [orderBy(query.sort, locale as Locale), { id: 'asc' }],
       skip: (page - 1) * PER_PAGE,
       take: PER_PAGE,
     }),

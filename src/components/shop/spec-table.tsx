@@ -84,7 +84,11 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
 
     // Значения из specs хранятся нейтральными токенами, чтобы переводиться.
     if (typeof value === 'string') {
-      if (tValue.has(value)) return tValue(value)
+      // Списки токенов через запятую («steel,mesh,temperedGlass») переводим поштучно.
+      const tokens = value.split(',')
+      if (tokens.every((token) => tValue.has(token) || token === 'RGB')) {
+        return tokens.map((token) => (tValue.has(token) ? tValue(token) : token)).join(', ')
+      }
       const months = value.match(/^(\d+) months$/)
       if (months) return `${months[1]} ${tUnit('months')}`
     }
@@ -98,7 +102,9 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
     const formatted = format(key, value)
     if (formatted !== null) {
       // Подпись ищем сначала среди полей движков, затем среди свободных specs.
-      const label = t.has(key) ? t(key) : tExtra.has(key) ? tExtra(key) : key
+      // У корпуса длина и высота — это пределы для видеокарты и кулера.
+      const caseKey = product.category === 'case' ? `${key}Case` : key
+      const label = t.has(caseKey) ? t(caseKey) : t.has(key) ? t(key) : tExtra.has(key) ? tExtra(key) : key
       rows.push([label, formatted])
     }
   }

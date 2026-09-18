@@ -113,7 +113,9 @@
     "pcieVersion": "Версия PCIe",
     "supportsFormFactors": "Поддерживаемые форм-факторы",
     "supportsRadiators": "Поддерживаемые радиаторы",
-    "supportsSockets": "Поддерживаемые сокеты"
+    "supportsSockets": "Поддерживаемые сокеты",
+    "lengthMmCase": "Макс. длина видеокарты",
+    "heightMmCase": "Макс. высота кулера"
   },
   "units": {
     "w": "Вт",
@@ -134,7 +136,8 @@
     "continue": "Продолжить покупки",
     "outOfStock": "Нет в наличии",
     "add": "В корзину",
-    "update": "Обновить количество"
+    "decrease": "Уменьшить",
+    "increase": "Увеличить"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -204,6 +207,23 @@
     "no": "Нет",
     "full": "Полностью",
     "partial": "Частично",
-    "lifetime": "Пожизненная"
+    "lifetime": "Пожизненная",
+    "yes": "Есть",
+    "steel": "сталь",
+    "mesh": "сетка",
+    "temperedGlass": "закалённое стекло",
+    "temperedGlass3": "закалённое стекло с трёх сторон",
+    "soundDampening": "шумоизоляция",
+    "walnut": "натуральный орех",
+    "aluminum": "алюминий",
+    "lowProfile": "низкопрофильный",
+    "tempDisplay": "цифровой индикатор температуры",
+    "AIR": "воздушное",
+    "AIO": "жидкостное (СЖО)",
+    "NVME": "NVMe SSD",
+    "SATA_SSD": "SATA SSD",
+    "HDD": "HDD",
+    "MATX": "Micro-ATX",
+    "ITX": "Mini-ITX"
   }
 }

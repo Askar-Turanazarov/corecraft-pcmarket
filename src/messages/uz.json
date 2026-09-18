@@ -113,7 +113,9 @@
     "pcieVersion": "PCIe versiyasi",
     "supportsFormFactors": "Qo'llab-quvvatlanadigan form-faktorlar",
     "supportsRadiators": "Qo'llab-quvvatlanadigan radiatorlar",
-    "supportsSockets": "Qo'llab-quvvatlanadigan soketlar"
+    "supportsSockets": "Qo'llab-quvvatlanadigan soketlar",
+    "lengthMmCase": "Videokartaning maks. uzunligi",
+    "heightMmCase": "Kulerning maks. balandligi"
   },
   "units": {
     "w": "Vt",
@@ -134,7 +136,8 @@
     "continue": "Xaridni davom ettirish",
     "outOfStock": "Mavjud emas",
     "add": "Savatga",
-    "update": "Miqdorni yangilash"
+    "decrease": "Kamaytirish",
+    "increase": "Ko‘paytirish"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -204,6 +207,23 @@
     "no": "Yo'q",
     "full": "To'liq",
     "partial": "Qisman",
-    "lifetime": "Umrbod"
+    "lifetime": "Umrbod",
+    "yes": "Bor",
+    "steel": "po‘lat",
+    "mesh": "to‘r",
+    "temperedGlass": "toblangan shisha",
+    "temperedGlass3": "uch tomondan toblangan shisha",
+    "soundDampening": "shovqin izolyatsiyasi",
+    "walnut": "tabiiy yong‘oq",
+    "aluminum": "alyuminiy",
+    "lowProfile": "past profilli",
+    "tempDisplay": "raqamli harorat ko‘rsatkichi",
+    "AIR": "havo",
+    "AIO": "suyuq sovutish (AIO)",
+    "NVME": "NVMe SSD",
+    "SATA_SSD": "SATA SSD",
+    "HDD": "HDD",
+    "MATX": "Micro-ATX",
+    "ITX": "Mini-ITX"
   }
 }

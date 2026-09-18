@@ -113,7 +113,9 @@
     "pcieVersion": "PCIe version",
     "supportsFormFactors": "Supported form factors",
     "supportsRadiators": "Supported radiators",
-    "supportsSockets": "Supported sockets"
+    "supportsSockets": "Supported sockets",
+    "lengthMmCase": "Max GPU length",
+    "heightMmCase": "Max cooler height"
   },
   "units": {
     "w": "W",
@@ -134,7 +136,8 @@
     "continue": "Continue shopping",
     "outOfStock": "Out of stock",
     "add": "Add to cart",
-    "update": "Update quantity"
+    "decrease": "Decrease",
+    "increase": "Increase"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -204,6 +207,23 @@
     "no": "No",
     "full": "Full",
     "partial": "Partial",
-    "lifetime": "Lifetime"
+    "lifetime": "Lifetime",
+    "yes": "Yes",
+    "steel": "steel",
+    "mesh": "mesh",
+    "temperedGlass": "tempered glass",
+    "temperedGlass3": "tempered glass on three sides",
+    "soundDampening": "sound dampening",
+    "walnut": "natural walnut",
+    "aluminum": "aluminium",
+    "lowProfile": "low profile",
+    "tempDisplay": "digital temperature display",
+    "AIR": "air",
+    "AIO": "liquid (AIO)",
+    "NVME": "NVMe SSD",
+    "SATA_SSD": "SATA SSD",
+    "HDD": "HDD",
+    "MATX": "Micro-ATX",
+    "ITX": "Mini-ITX"
   }
 }

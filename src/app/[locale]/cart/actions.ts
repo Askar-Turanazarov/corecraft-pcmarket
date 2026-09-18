@@ -21,7 +21,13 @@ export async function addToCart(productId: string, qty = 1) {
 }
 
 export async function setCartQty(productId: string, qty: number) {
-  await writeCart(mergeLine(await readCart(), productId, qty))
+  // Как и при добавлении: больше, чем есть на складе, в корзину не кладём.
+  const product = await db.product.findUnique({
+    where: { id: productId },
+    select: { stock: true },
+  })
+  const safe = Number.isFinite(qty) ? Math.min(qty, product?.stock ?? 0) : 0
+  await writeCart(mergeLine(await readCart(), productId, safe))
   revalidatePath('/', 'layout')
 }
 
