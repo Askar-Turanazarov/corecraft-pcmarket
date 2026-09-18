@@ -5,6 +5,7 @@ import { getLocale } from 'next-intl/server'
 import { z } from 'zod'
 import { redirect } from '@/i18n/navigation'
 import { db } from '@/lib/db'
+import { searchTextOf } from '@/lib/search'
 import { orderNumber } from '@/lib/orders'
 import { notify } from '@/lib/telegram/bot'
 import {
@@ -71,7 +72,9 @@ export async function saveProduct(formData: FormData) {
   if (!parsed.success) return go(`${base}/products/${encodeURIComponent(rawId)}`, z.prettifyError(parsed.error))
 
   const { id: productId, ...data } = parsed.data
-  await db.product.update({ where: { id: productId }, data })
+  // Названия могли поменяться — пересобираем строку поиска.
+  const current = await db.product.findUniqueOrThrow({ where: { id: productId }, select: { brand: true, model: true } })
+  await db.product.update({ where: { id: productId }, data: { ...data, searchText: searchTextOf({ ...current, ...data }) } })
   refresh()
   return go(`${base}/products`)
 }

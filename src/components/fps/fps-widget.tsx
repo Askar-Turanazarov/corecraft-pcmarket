@@ -18,7 +18,7 @@ export async function FpsWidget({
 }: {
   rig: Rig
   locale: Locale
-  fpsHref: string
+  fpsHref?: string
 }) {
   const t = await getTranslations('fps')
   const [games, constants] = await Promise.all([
@@ -63,9 +63,11 @@ export async function FpsWidget({
         </table>
       )}
       <p className="mt-3 text-xs text-muted">{t('disclaimer')}</p>
-      <Link href={fpsHref} className="mt-2 inline-block text-accent hover:underline">
-        {t('widgetMore')}
-      </Link>
+      {fpsHref && (
+        <Link href={fpsHref} className="mt-2 inline-block text-accent hover:underline">
+          {t('widgetMore')}
+        </Link>
+      )}
     </div>
   )
 }

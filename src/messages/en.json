@@ -10,13 +10,30 @@
     "cart": "Cart",
     "account": "Account",
     "signIn": "Sign in",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "compare": "Compare ({count})",
+    "main": "Main menu"
   },
   "home": {
     "title": "Build your own PC",
     "subtitle": "Pick your parts, keep them compatible, and see how many frames the build will push in your games.",
     "ctaBuilder": "Open the builder",
-    "ctaCatalog": "Browse the catalog"
+    "ctaCatalog": "Browse the catalog",
+    "categories": "Categories",
+    "features": {
+      "builder": {
+        "title": "3D PC builder",
+        "text": "Build a PC slot by slot: incompatible parts are flagged instantly and the build takes shape in 3D."
+      },
+      "fps": {
+        "title": "FPS before you buy",
+        "text": "Frame estimates in 50 games at any settings — see whether the build is CPU- or GPU-bound."
+      },
+      "telegram": {
+        "title": "Pay in Telegram",
+        "text": "An invoice in so‘m right in Telegram via Click or Payme, delivery across Tashkent."
+      }
+    }
   },
   "auth": {
     "signInTitle": "Sign in",
@@ -75,7 +92,8 @@
       "headset": "Headsets",
       "laptop": "Laptops",
       "prebuilt": "Prebuilt PCs"
-    }
+    },
+    "rating": "Rated {avg} of 5"
   },
   "product": {
     "brand": "Brand",
@@ -85,7 +103,10 @@
     "description": "Description",
     "noDescription": "No description yet",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "compare": "Compare",
+    "inCompare": "In comparison",
+    "openCompare": "Open comparison"
   },
   "spec": {
     "socket": "Socket",
@@ -202,7 +223,42 @@
     "warranty": "Warranty",
     "wifi": "Wi-Fi",
     "write": "Write speed",
-    "xeCores": "Xe cores"
+    "xeCores": "Xe cores",
+    "gpuVendor": "Graphics vendor",
+    "cpu": "Processor",
+    "gpu": "Graphics card",
+    "ram": "Memory",
+    "storage": "Storage",
+    "motherboard": "Motherboard",
+    "psu": "Power supply",
+    "case": "Case",
+    "os": "Operating system",
+    "screen": "Screen",
+    "resolution": "Resolution",
+    "refreshRate": "Refresh rate",
+    "battery": "Battery",
+    "weight": "Weight",
+    "diagonal": "Screen size",
+    "panel": "Panel type",
+    "responseTime": "Response time",
+    "brightness": "Brightness",
+    "hdr": "HDR",
+    "adaptiveSync": "Adaptive sync",
+    "ports": "Ports",
+    "layout": "Layout",
+    "switches": "Switches",
+    "keycaps": "Keycaps",
+    "connection": "Connection",
+    "backlight": "Backlight",
+    "pollingRate": "Polling rate",
+    "sensor": "Sensor",
+    "dpi": "Max DPI",
+    "buttons": "Buttons",
+    "driver": "Driver",
+    "frequencyResponse": "Frequency response",
+    "detachableMic": "Detachable microphone",
+    "surround": "Surround sound",
+    "anc": "Active noise cancelling"
   },
   "specValue": {
     "no": "No",
@@ -415,5 +471,30 @@
       "DONE": "Delivered",
       "CANCELLED": "Cancelled"
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The address may be mistyped, or the product is no longer sold.",
+    "home": "Home",
+    "catalog": "Catalog"
+  },
+  "compare": {
+    "title": "Compare products",
+    "empty": "Add products to compare from a product page — up to four.",
+    "toCatalog": "Go to catalog",
+    "remove": "Remove from comparison",
+    "hint": "Specs that differ are shown in bold."
+  },
+  "reviews": {
+    "title": "Reviews",
+    "summary": "{avg} of 5 · {count, plural, one {# review} other {# reviews}}",
+    "rating": "Rating",
+    "text": "Your review",
+    "submit": "Post review",
+    "update": "Update review",
+    "signIn": "Sign in to leave a review",
+    "none": "No reviews yet — be the first.",
+    "anonymous": "Customer",
+    "stars": "{n} of 5"
   }
 }

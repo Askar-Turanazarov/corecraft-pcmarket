@@ -166,7 +166,7 @@ export default async function FpsPage({ params, searchParams }: Props) {
         {compare && <p className="text-muted">{t('averageB', { fps: avgOf('b') ?? '—' })}</p>}
       </div>
 
-      <div className="mt-4 overflow-x-auto rounded-xl border border-border">
+      <div className="relative mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full min-w-[36rem] text-sm">
           <thead className="bg-surface text-left text-muted">
             <tr>

@@ -3,6 +3,10 @@ import bcrypt from 'bcryptjs'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '../../src/generated/prisma/client'
 import { components } from './components'
+import { componentsExtra } from './components-extra'
+import { peripherals } from './peripherals'
+import { systems } from './systems'
+import { searchTextOf } from '../../src/lib/search'
 import { games } from './games'
 
 const db = new PrismaClient({
@@ -42,7 +46,8 @@ async function main() {
 
   // Ключ — slug: повторный запуск сида обновляет цены и остатки,
   // а не плодит дубликаты.
-  for (const product of components) {
+  for (const seed of [...components, ...componentsExtra, ...systems, ...peripherals]) {
+    const product = { ...seed, searchText: searchTextOf(seed) }
     await db.product.upsert({
       where: { slug: product.slug },
       create: product,

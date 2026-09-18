@@ -55,7 +55,7 @@ function parseJson(raw: unknown): unknown {
   }
 }
 
-function parseObject(raw: unknown): Record<string, unknown> {
+export function parseObject(raw: unknown): Record<string, unknown> {
   const parsed = parseJson(raw)
   if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
     return parsed as Record<string, unknown>
@@ -63,7 +63,8 @@ function parseObject(raw: unknown): Record<string, unknown> {
   return {}
 }
 
-export async function SpecTable({ product }: { product: Record<string, unknown> }) {
+/** Строки «подпись — значение» на языке страницы; их же сводит в таблицу страница сравнения. */
+export async function specRows(product: Record<string, unknown>): Promise<Array<[string, string]>> {
   const t = await getTranslations('spec')
   const tExtra = await getTranslations('specExtra')
   const tValue = await getTranslations('specValue')
@@ -112,7 +113,11 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
   for (const key of FIELDS) push(key, product[key])
   // Всё, что не поместилось в колонки, лежит JSON-строкой в specs.
   for (const [key, value] of Object.entries(parseObject(product.specs))) push(key, value)
+  return rows
+}
 
+export async function SpecTable({ product }: { product: Record<string, unknown> }) {
+  const [rows, tProduct] = await Promise.all([specRows(product), getTranslations('product')])
   if (rows.length === 0) {
     return <p className="text-sm text-muted">{tProduct('noSpecs')}</p>
   }

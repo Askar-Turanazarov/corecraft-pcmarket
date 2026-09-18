@@ -10,13 +10,30 @@
     "cart": "Savat",
     "account": "Kabinet",
     "signIn": "Kirish",
-    "signOut": "Chiqish"
+    "signOut": "Chiqish",
+    "compare": "Solishtirish ({count})",
+    "main": "Asosiy menyu"
   },
   "home": {
     "title": "O'z kompyuteringizni yig'ing",
     "subtitle": "Butlovchi qismlarni tanlang, moslikni kuzating va yig'ilma o'yinlaringizda qancha kadr berishini ko'ring.",
     "ctaBuilder": "Konstruktorni ochish",
-    "ctaCatalog": "Katalogni ko'rish"
+    "ctaCatalog": "Katalogni ko'rish",
+    "categories": "Kategoriyalar",
+    "features": {
+      "builder": {
+        "title": "3D konstruktor",
+        "text": "Kompyuterni slotlar bo‘yicha yig‘ing: mos kelmaydigan qismlar darhol belgilanadi, yig‘ma esa 3D da ko‘rinadi."
+      },
+      "fps": {
+        "title": "Xariddan oldin FPS",
+        "text": "50 ta o‘yinda istalgan sozlamalarda kadrlar taxmini — yig‘ma protsessor yoki videokartaga tiralishini ko‘rasiz."
+      },
+      "telegram": {
+        "title": "Telegramda to‘lov",
+        "text": "So‘mdagi hisob to‘g‘ridan-to‘g‘ri Telegramda, Click yoki Payme orqali, Toshkent bo‘ylab yetkazib berish."
+      }
+    }
   },
   "auth": {
     "signInTitle": "Kirish",
@@ -75,7 +92,8 @@
       "headset": "Quloqchinlar",
       "laptop": "Noutbuklar",
       "prebuilt": "Tayyor yig'ilmalar"
-    }
+    },
+    "rating": "Baho: 5 dan {avg}"
   },
   "product": {
     "brand": "Brend",
@@ -85,7 +103,10 @@
     "description": "Tavsif",
     "noDescription": "Tavsif hali qo'shilmagan",
     "yes": "Bor",
-    "no": "Yo'q"
+    "no": "Yo'q",
+    "compare": "Solishtirish",
+    "inCompare": "Solishtirishda",
+    "openCompare": "Solishtirishni ochish"
   },
   "spec": {
     "socket": "Soket",
@@ -202,7 +223,42 @@
     "warranty": "Kafolat",
     "wifi": "Wi-Fi",
     "write": "Yozish tezligi",
-    "xeCores": "Xe yadrolari"
+    "xeCores": "Xe yadrolari",
+    "gpuVendor": "Grafika ishlab chiqaruvchisi",
+    "cpu": "Protsessor",
+    "gpu": "Videokarta",
+    "ram": "Operativ xotira",
+    "storage": "Saqlash qurilmasi",
+    "motherboard": "Ona plata",
+    "psu": "Quvvat bloki",
+    "case": "Korpus",
+    "os": "Operatsion tizim",
+    "screen": "Ekran",
+    "resolution": "Ruxsat",
+    "refreshRate": "Yangilanish chastotasi",
+    "battery": "Batareya",
+    "weight": "Og‘irlik",
+    "diagonal": "Diagonal",
+    "panel": "Matritsa turi",
+    "responseTime": "Javob vaqti",
+    "brightness": "Yorqinlik",
+    "hdr": "HDR",
+    "adaptiveSync": "Moslashuvchan sinxronlash",
+    "ports": "Ulagichlar",
+    "layout": "Joylashuv",
+    "switches": "Kalit mexanizmlari",
+    "keycaps": "Tugma qopqoqlari",
+    "connection": "Ulanish",
+    "backlight": "Yoritish",
+    "pollingRate": "So‘rov chastotasi",
+    "sensor": "Sensor",
+    "dpi": "Maks. DPI",
+    "buttons": "Tugmalar",
+    "driver": "Dinamik",
+    "frequencyResponse": "Chastota diapazoni",
+    "detachableMic": "Olinadigan mikrofon",
+    "surround": "Hajmli ovoz",
+    "anc": "Faol shovqin bostirish"
   },
   "specValue": {
     "no": "Yo'q",
@@ -415,5 +471,30 @@
       "DONE": "Yetkazib berildi",
       "CANCELLED": "Bekor qilingan"
     }
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "text": "Ehtimol, manzil xato yozilgan yoki tovar sotuvdan olingan.",
+    "home": "Bosh sahifaga",
+    "catalog": "Katalogga"
+  },
+  "compare": {
+    "title": "Tovarlarni solishtirish",
+    "empty": "Tovar sahifasidan solishtirishga qo‘shing — to‘rttagacha.",
+    "toCatalog": "Katalogga o‘tish",
+    "remove": "Solishtirishdan olib tashlash",
+    "hint": "Farq qiladigan xususiyatlar qalin harf bilan ajratilgan."
+  },
+  "reviews": {
+    "title": "Sharhlar",
+    "summary": "5 dan {avg} · {count} ta sharh",
+    "rating": "Baho",
+    "text": "Sharhingiz",
+    "submit": "Sharh qoldirish",
+    "update": "Sharhni yangilash",
+    "signIn": "Sharh qoldirish uchun kiring",
+    "none": "Hozircha sharhlar yo‘q — birinchi bo‘ling.",
+    "anonymous": "Xaridor",
+    "stars": "5 dan {n}"
   }
 }

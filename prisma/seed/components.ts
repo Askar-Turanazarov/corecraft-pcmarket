@@ -5,8 +5,10 @@
 
 export type SeedProduct = {
   slug: string
-  kind: 'COMPONENT'
-  category: 'cpu' | 'gpu' | 'motherboard' | 'ram' | 'storage' | 'psu' | 'case' | 'cooler'
+  kind: 'COMPONENT' | 'PREBUILT' | 'LAPTOP' | 'PERIPHERAL'
+  category:
+    | 'cpu' | 'gpu' | 'motherboard' | 'ram' | 'storage' | 'psu' | 'case' | 'cooler'
+    | 'prebuilt' | 'laptop' | 'monitor' | 'keyboard' | 'mouse' | 'headset'
   brand: string
   model: string
 

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, Scale } from 'lucide-react'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { db } from '@/lib/db'
 import { Link } from '@/i18n/navigation'
@@ -10,7 +10,12 @@ import { CategoryIcon } from '@/components/shop/category-icon'
 import { productDesc, productName } from '@/components/shop/localized'
 import { Price } from '@/components/shop/price'
 import { AddToCart } from '@/components/cart/add-to-cart'
-import { SpecTable } from '@/components/shop/spec-table'
+import { SpecTable, parseObject as parseSpecs } from '@/components/shop/spec-table'
+import { Reviews } from '@/components/shop/reviews'
+import { FpsWidget } from '@/components/fps/fps-widget'
+import { rigFromParts } from '@/lib/fps'
+import { readCompare } from '@/lib/compare'
+import { toggleCompare } from '../../compare/actions'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
@@ -34,6 +39,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product || !product.isActive) notFound()
 
   const inStock = product.stock > 0
+  const inCompare = (await readCompare()).includes(product.slug)
   const description = productDesc(product, locale as Locale)
   const categoryKey = `categories.${product.category}`
 
@@ -83,9 +89,41 @@ export default async function ProductPage({ params }: Props) {
             {inStock ? tCatalog('inStock') : tCatalog('outOfStock')}
           </p>
 
-          <AddToCart productId={product.id} stock={product.stock} className="mt-2 w-full sm:w-auto" />
+          <div className="flex flex-wrap items-center gap-3">
+            <AddToCart productId={product.id} stock={product.stock} className="mt-2 w-full sm:w-auto" />
+            <form action={toggleCompare.bind(null, product.slug)} className="mt-2">
+              <button
+                type="submit"
+                aria-pressed={inCompare}
+                className="flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm hover:bg-surface"
+              >
+                <Scale className="size-4" />
+                {inCompare ? t('inCompare') : t('compare')}
+              </button>
+            </form>
+            {inCompare && (
+              <Link href="/compare" className="mt-2 text-sm text-accent hover:underline">
+                {t('openCompare')}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Готовые ПК и ноутбуки — целая система, для неё сразу видно FPS. */}
+      {(product.kind === 'PREBUILT' || product.kind === 'LAPTOP') && (
+        <div className="mt-10">
+          <FpsWidget
+            locale={locale as Locale}
+            rig={rigFromParts({
+              cpu: product,
+              gpu: { ...product, brand: String(parseSpecs(product.specs).gpuVendor ?? product.brand) },
+              ram: product,
+              drive: product,
+            })}
+          />
+        </div>
+      )}
 
       <section className="mt-12">
         <h2 className="mb-3 text-lg font-medium">{t('specs')}</h2>
@@ -98,6 +136,8 @@ export default async function ProductPage({ params }: Props) {
           {description || t('noDescription')}
         </p>
       </section>
+
+      <Reviews productId={product.id} slug={product.slug} locale={locale as Locale} />
     </div>
   )
 }
