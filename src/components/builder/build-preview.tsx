@@ -117,7 +117,7 @@ export function BuildPreview({ parts, compact = false }: { parts: ScenePart[]; c
 
   if (webglOk === false) {
     return (
-      <div className="rounded-xl border border-border bg-surface p-5">
+      <div className="glow rounded-[var(--radius-panel)] border border-border bg-surface p-5">
         <p className="text-sm text-muted">{t('noWebgl')}</p>
         <ul className="mt-4 space-y-2">
           {parts.map((p, i) => {

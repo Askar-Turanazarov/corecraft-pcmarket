@@ -46,12 +46,3 @@ export const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0
 
 export const date = (d: Date | null) => (d ? d.toLocaleString('ru-RU') : '—')
 
-// Общие классы — таблицы и формы во всех разделах одинаковые.
-export const ui = {
-  table: 'w-full text-sm [&_td]:border-t [&_td]:border-border [&_td]:px-2 [&_td]:py-1.5 [&_th]:px-2 [&_th]:py-1.5 [&_th]:text-left [&_th]:font-medium [&_th]:text-muted',
-  input: 'w-full rounded-md border border-border bg-surface-2 px-2 py-1.5 text-sm outline-none focus:border-accent',
-  button: 'rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-background hover:bg-accent-strong',
-  link: 'text-accent hover:underline',
-  card: 'rounded-lg border border-border bg-surface p-4',
-  label: 'block space-y-1 text-xs text-muted',
-}

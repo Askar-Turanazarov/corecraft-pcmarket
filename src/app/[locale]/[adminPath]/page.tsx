@@ -1,7 +1,10 @@
 import { Link } from '@/i18n/navigation'
+import { cn } from '@/lib/cn'
 import { db } from '@/lib/db'
 import { formatUzs } from '@/lib/money'
-import { ORDER_STATUSES, date, requireAdmin, ui } from './admin'
+import { card, sectionTitle } from '@/components/ui/styles'
+import { ORDER_STATUSES, date, requireAdmin } from './admin'
+import { Status, rowLink, table, tableWrap, title } from './admin-ui'
 
 export default async function AdminDashboard({ params }: { params: Promise<{ adminPath: string }> }) {
   const { base } = await requireAdmin((await params).adminPath)
@@ -15,42 +18,61 @@ export default async function AdminDashboard({ params }: { params: Promise<{ adm
   ])
   const statusCount = (s: string) => byStatus.find((r) => r.status === s)?._count._all ?? 0
 
-  const tiles: [string, number][] = [
-    ['Товаров', products],
-    ['Мало на складе (≤ 2)', lowStock],
-    ['Пользователей', users],
-    ...ORDER_STATUSES.map((s): [string, number] => [`Заказы ${s}`, statusCount(s)]),
+  const tiles: [string, number, boolean][] = [
+    ['Товаров', products, false],
+    ['Мало на складе (≤ 2)', lowStock, lowStock > 0],
+    ['Пользователей', users, false],
   ]
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-semibold">Дашборд</h1>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {tiles.map(([label, value]) => (
-          <div key={label} className={ui.card}>
-            <div className="text-xs text-muted">{label}</div>
-            <div className="mt-1 text-2xl font-semibold">{value}</div>
+      <h1 className={title}>Дашборд</h1>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        {tiles.map(([label, value, warn]) => (
+          <div key={label} className={cn(card, 'p-5', warn && 'border-warning/40')}>
+            <div className="text-sm text-muted">{label}</div>
+            <div className={cn('tabular mt-2 font-display text-3xl font-semibold', warn && 'text-warning')}>{value}</div>
           </div>
         ))}
       </div>
 
       <section>
-        <h2 className="mb-2 font-medium">Последние заказы</h2>
-        <table className={ui.table}>
-          <thead>
-            <tr><th>Дата</th><th>Клиент</th><th>Сумма</th><th>Статус</th></tr>
-          </thead>
-          <tbody>
-            {lastOrders.map((o) => (
-              <tr key={o.id}>
-                <td><Link href={`${base}/orders/${o.id}`} className={ui.link}>{date(o.createdAt)}</Link></td>
-                <td>{o.customerName}</td>
-                <td>{formatUzs(o.totalUzs, 'ru')}</td>
-                <td>{o.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <h2 className={cn(sectionTitle, 'mb-3')}>Заказы по статусам</h2>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {ORDER_STATUSES.map((s) => (
+            <li key={s}>
+              <Link
+                href={`${base}/orders?status=${s}`}
+                className={cn(card, 'flex min-h-11 flex-col gap-2 p-4 transition-colors hover:border-accent/60')}
+              >
+                <Status value={s} />
+                <span className="tabular font-display text-2xl font-semibold">{statusCount(s)}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className={cn(sectionTitle, 'mb-3')}>Последние заказы</h2>
+        <div className={tableWrap}>
+          <table className={table}>
+            <thead>
+              <tr><th>Дата</th><th>Клиент</th><th className="text-right!">Сумма</th><th>Статус</th></tr>
+            </thead>
+            <tbody>
+              {lastOrders.map((o) => (
+                <tr key={o.id}>
+                  <td className="whitespace-nowrap"><Link href={`${base}/orders/${o.id}`} className={cn(rowLink, 'tabular')}>{date(o.createdAt)}</Link></td>
+                  <td>{o.customerName}</td>
+                  <td className="tabular whitespace-nowrap text-right">{formatUzs(o.totalUzs, 'ru')}</td>
+                  <td><Status value={o.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   )

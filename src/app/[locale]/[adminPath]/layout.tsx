@@ -1,20 +1,11 @@
 import type { Metadata } from 'next'
-import { Link } from '@/i18n/navigation'
 import { requireAdmin } from './admin'
+import { AdminNav } from './admin-nav'
 
 // ponytail: панель внутренняя, для сотрудников — i18n пропущен, строки по-русски.
 
 // X-Robots-Tag для этих адресов дополнительно отдаёт next.config.ts (headers()).
 export const metadata: Metadata = { robots: { index: false, follow: false } }
-
-const NAV = [
-  ['', 'Дашборд'],
-  ['/products', 'Товары'],
-  ['/games', 'Игры'],
-  ['/orders', 'Заказы'],
-  ['/users', 'Пользователи'],
-  ['/settings', 'Настройки'],
-] as const
 
 export default async function AdminLayout({
   children,
@@ -26,15 +17,14 @@ export default async function AdminLayout({
   const { base } = await requireAdmin((await params).adminPath)
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <nav className="mb-6 flex flex-wrap gap-1 border-b border-border pb-3 text-sm">
-        {NAV.map(([path, label]) => (
-          <Link key={path} href={`${base}${path}`} className="rounded-md px-3 py-1.5 hover:bg-surface">
-            {label}
-          </Link>
-        ))}
-      </nav>
-      {children}
+    <div className="mx-auto max-w-7xl px-4 py-8 lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10">
+      <aside className="mb-6 border-b border-border pb-3 lg:mb-0 lg:border-b-0 lg:pb-0">
+        <div className="lg:sticky lg:top-24">
+          <p className="mb-2 text-xs font-medium text-muted lg:px-3">Админ-панель</p>
+          <AdminNav base={base} />
+        </div>
+      </aside>
+      <div className="min-w-0">{children}</div>
     </div>
   )
 }

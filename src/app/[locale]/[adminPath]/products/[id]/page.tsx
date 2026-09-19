@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
 import { saveProduct } from '../../actions'
-import { PRODUCT_FLOAT, PRODUCT_INT, PRODUCT_JSON, PRODUCT_STR, one, requireAdmin, ui } from '../../admin'
+import { cn } from '@/lib/cn'
+import { button, field, panel, sectionTitle } from '@/components/ui/styles'
+import { PRODUCT_FLOAT, PRODUCT_INT, PRODUCT_JSON, PRODUCT_STR, one, requireAdmin } from '../../admin'
+import { ErrorNote, check, checkbox, label, title } from '../../admin-ui'
 
 export default async function AdminProductEdit({
   params,
@@ -26,37 +29,38 @@ export default async function AdminProductEdit({
   ]
 
   return (
-    <form action={saveProduct} className="space-y-6">
+    <form action={saveProduct} className="max-w-5xl space-y-6">
       <input type="hidden" name="id" value={p.id} />
       <div>
-        <h1 className="text-2xl font-semibold">{p.nameRu}</h1>
-        <p className="text-sm text-muted">{p.slug} · {p.category} · {p.brand} {p.model}</p>
+        <h1 className={title}>{p.nameRu}</h1>
+        <p className="mt-1 text-sm text-muted">{p.slug} · {p.category} · {p.brand} {p.model}</p>
       </div>
-      {error && <p className="whitespace-pre-line rounded-md border border-danger px-3 py-2 text-sm text-danger">{error}</p>}
+      {error && <ErrorNote>{error}</ErrorNote>}
 
-      <section className={`${ui.card} grid gap-3 sm:grid-cols-3`}>
-        <label className={ui.label}>nameRu<input name="nameRu" defaultValue={p.nameRu} required className={ui.input} /></label>
-        <label className={ui.label}>nameUz<input name="nameUz" defaultValue={p.nameUz} required className={ui.input} /></label>
-        <label className={ui.label}>nameEn<input name="nameEn" defaultValue={p.nameEn} required className={ui.input} /></label>
-        <label className={ui.label}>priceUzs<input name="priceUzs" type="number" min={0} defaultValue={p.priceUzs} required className={ui.input} /></label>
-        <label className={ui.label}>oldPriceUzs<input name="oldPriceUzs" type="number" min={0} defaultValue={p.oldPriceUzs ?? ''} className={ui.input} /></label>
-        <label className={ui.label}>stock<input name="stock" type="number" min={0} defaultValue={p.stock} required className={ui.input} /></label>
-        <label className="flex items-center gap-2 text-sm">
-          <input name="isActive" type="checkbox" defaultChecked={p.isActive} /> Активен (виден в каталоге)
+      <section className={cn(panel, 'grid gap-4 p-5 sm:grid-cols-3 sm:p-6')}>
+        <h2 className={cn(sectionTitle, 'sm:col-span-3')}>Основное</h2>
+        <label className={label}>nameRu<input name="nameRu" defaultValue={p.nameRu} required className={field} /></label>
+        <label className={label}>nameUz<input name="nameUz" defaultValue={p.nameUz} required className={field} /></label>
+        <label className={label}>nameEn<input name="nameEn" defaultValue={p.nameEn} required className={field} /></label>
+        <label className={label}>priceUzs<input name="priceUzs" type="number" min={0} defaultValue={p.priceUzs} required className={cn(field, 'tabular')} /></label>
+        <label className={label}>oldPriceUzs<input name="oldPriceUzs" type="number" min={0} defaultValue={p.oldPriceUzs ?? ''} className={cn(field, 'tabular')} /></label>
+        <label className={label}>stock<input name="stock" type="number" min={0} defaultValue={p.stock} required className={cn(field, 'tabular')} /></label>
+        <label className={cn(check, 'sm:col-span-3')}>
+          <input name="isActive" type="checkbox" defaultChecked={p.isActive} className={checkbox} /> Активен (виден в каталоге)
         </label>
       </section>
 
-      <section className={`${ui.card} grid gap-3 sm:grid-cols-4`}>
-        <h2 className="font-medium sm:col-span-4">Поля движков совместимости и FPS</h2>
+      <section className={cn(panel, 'grid gap-4 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-4')}>
+        <h2 className={cn(sectionTitle, 'sm:col-span-2 lg:col-span-4')}>Поля движков совместимости и FPS</h2>
         {engine.map(([name, value, type]) => (
-          <label key={name} className={ui.label}>
+          <label key={name} className={label}>
             {name}
-            <input name={name} type={type} step="any" min={type === 'number' ? 0 : undefined} defaultValue={value ?? ''} className={ui.input} />
+            <input name={name} type={type} step="any" min={type === 'number' ? 0 : undefined} defaultValue={value ?? ''} className={cn(field, type === 'number' && 'tabular')} />
           </label>
         ))}
-        <label className={ui.label}>
+        <label className={label}>
           has12vhpwr
-          <select name="has12vhpwr" defaultValue={p.has12vhpwr === null ? '' : String(p.has12vhpwr)} className={ui.input}>
+          <select name="has12vhpwr" defaultValue={p.has12vhpwr === null ? '' : String(p.has12vhpwr)} className={field}>
             <option value="">—</option>
             <option value="true">да</option>
             <option value="false">нет</option>
@@ -64,12 +68,14 @@ export default async function AdminProductEdit({
         </label>
       </section>
 
-      <label className={ui.label}>
-        specs (JSON-объект)
-        <textarea name="specs" defaultValue={p.specs} rows={10} className={`${ui.input} font-mono`} />
-      </label>
+      <section className={cn(panel, 'p-5 sm:p-6')}>
+        <label className={label}>
+          specs (JSON-объект)
+          <textarea name="specs" defaultValue={p.specs} rows={10} className={cn(field, 'font-mono text-sm')} />
+        </label>
+      </section>
 
-      <button className={ui.button}>Сохранить</button>
+      <button className={button('primary', 'lg')}>Сохранить</button>
     </form>
   )
 }

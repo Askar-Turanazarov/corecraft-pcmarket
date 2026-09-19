@@ -1,8 +1,11 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
 import { db } from '@/lib/db'
 import { formatUzs } from '@/lib/money'
-import { one, requireAdmin, ui } from '../admin'
+import { badge, button, field } from '@/components/ui/styles'
+import { one, requireAdmin } from '../admin'
+import { label, rowLink, table, tableWrap, title } from '../admin-ui'
 
 const PER_PAGE = 50
 
@@ -38,42 +41,65 @@ export default async function AdminProducts({
     `${base}/products?${new URLSearchParams({ ...(q && { q }), ...(category && { category }), page: String(n) })}`
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Товары <span className="text-base text-muted">({total})</span></h1>
+    <div className="space-y-6">
+      <h1 className={title}>
+        Товары <span className="tabular text-base font-normal text-muted">({total})</span>
+      </h1>
 
       {/* Обычная GET-форма: фильтр живёт в адресе, JS не нужен. */}
-      <form className="flex flex-wrap gap-2">
-        <input name="q" defaultValue={q} placeholder="Название, slug, модель" className={cn(ui.input, 'max-w-xs')} />
-        <select name="category" defaultValue={category} className={cn(ui.input, 'max-w-48')}>
-          <option value="">Все категории</option>
-          {categories.map((c) => <option key={c.category} value={c.category}>{c.category}</option>)}
-        </select>
-        <button className={ui.button}>Найти</button>
+      <form className="flex flex-wrap items-end gap-3">
+        <label className={cn(label, 'w-full sm:w-72')}>
+          Поиск
+          <input name="q" defaultValue={q} placeholder="Название, slug, модель" className={field} />
+        </label>
+        <label className={cn(label, 'w-full sm:w-56')}>
+          Категория
+          <select name="category" defaultValue={category} className={field}>
+            <option value="">Все категории</option>
+            {categories.map((c) => <option key={c.category} value={c.category}>{c.category}</option>)}
+          </select>
+        </label>
+        <button className={button('primary', 'md')}>Найти</button>
       </form>
 
-      <table className={ui.table}>
-        <thead>
-          <tr><th>Название</th><th>Категория</th><th>Бренд</th><th>Цена</th><th>Склад</th><th>Активен</th></tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id} className={cn(!p.isActive && 'text-muted')}>
-              <td><Link href={`${base}/products/${p.id}`} className={ui.link}>{p.nameRu}</Link></td>
-              <td>{p.category}</td>
-              <td>{p.brand}</td>
-              <td className="whitespace-nowrap">{formatUzs(p.priceUzs, 'ru')}</td>
-              <td className={cn(p.stock <= 2 && 'text-warning')}>{p.stock}</td>
-              <td>{p.isActive ? 'да' : 'нет'}</td>
+      <div className={tableWrap}>
+        <table className={table}>
+          <thead>
+            <tr>
+              <th>Название</th><th>Категория</th><th>Бренд</th>
+              <th className="text-right!">Цена</th><th className="text-right!">Склад</th><th>Статус</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="flex items-center gap-3 text-sm">
-        {page > 1 && <Link href={pageHref(page - 1)} className={ui.link}>← Назад</Link>}
-        <span className="text-muted">Стр. {page} из {pages}</span>
-        {page < pages && <Link href={pageHref(page + 1)} className={ui.link}>Вперёд →</Link>}
+          </thead>
+          <tbody>
+            {products.map((p) => (
+              <tr key={p.id} className={cn(!p.isActive && 'text-muted')}>
+                <td className="min-w-56"><Link href={`${base}/products/${p.id}`} className={rowLink}>{p.nameRu}</Link></td>
+                <td>{p.category}</td>
+                <td>{p.brand}</td>
+                <td className="tabular whitespace-nowrap text-right">{formatUzs(p.priceUzs, 'ru')}</td>
+                <td className={cn('tabular text-right', p.stock <= 2 && 'font-medium text-warning')}>{p.stock}</td>
+                <td>
+                  <span className={badge(p.isActive ? 'plasma' : 'neutral')}>{p.isActive ? 'Активен' : 'Скрыт'}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+      <nav aria-label="Страницы" className="flex items-center gap-2 text-sm">
+        {page > 1 && (
+          <Link href={pageHref(page - 1)} aria-label="Предыдущая страница" className={button('secondary', 'md', 'w-11 px-0')}>
+            <ChevronLeft className="size-4" aria-hidden />
+          </Link>
+        )}
+        <span className="tabular text-muted">Стр. {page} из {pages}</span>
+        {page < pages && (
+          <Link href={pageHref(page + 1)} aria-label="Следующая страница" className={button('secondary', 'md', 'w-11 px-0')}>
+            <ChevronRight className="size-4" aria-hidden />
+          </Link>
+        )}
+      </nav>
     </div>
   )
 }
