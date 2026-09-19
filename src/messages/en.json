@@ -33,6 +33,45 @@
         "title": "Pay in Telegram",
         "text": "An invoice in so‘m right in Telegram via Click or Payme, delivery across Tashkent."
       }
+    },
+    "stats": {
+      "products": "{count, plural, one {product} other {products}} in the catalog",
+      "games": "{count, plural, one {game} other {games}} with FPS estimates"
+    },
+    "showcase": {
+      "title": "Showcase build",
+      "compatible": "All parts compatible",
+      "power": "About {w} W under load",
+      "open": "Open in the builder"
+    },
+    "paths": {
+      "title": "Where to start",
+      "builder": {
+        "title": "Build a PC slot by slot",
+        "text": "Pick a CPU, board, memory and the rest — the builder filters out what won’t fit and assembles the PC in 3D.",
+        "p1": "Socket, memory, clearance and PSU wattage checks",
+        "p2": "3D build and FPS estimate as you pick",
+        "p3": "A link to the build — save it or send it to a friend",
+        "cta": "Open the builder"
+      },
+      "catalog": {
+        "title": "Component catalog",
+        "text": "Filters by brand, price and specs, product comparison and customer reviews.",
+        "meta": "{products} products · {brands} brands",
+        "cta": "Browse the catalog"
+      },
+      "fps": {
+        "title": "FPS before you buy",
+        "text": "How many frames the build pushes in {count} games at low, medium, high and ultra settings.",
+        "cta": "Estimate FPS"
+      }
+    },
+    "categoriesAll": "Full catalog",
+    "categoryCount": "{count, plural, one {product} other {products}}",
+    "ready": {
+      "title": "Ready builds",
+      "text": "Assembled and tested in the CoreCraft workshop — from a first gaming PC to a 4K system.",
+      "all": "All ready builds"
     }
   },
   "auth": {
@@ -48,7 +87,9 @@
     "noAccount": "No account yet?",
     "invalidCredentials": "Wrong email or password",
     "emailTaken": "That email is already registered",
-    "orTelegram": "Or sign in with Telegram:"
+    "orTelegram": "Or sign in with Telegram:",
+    "signInLead": "Sign in to place orders and save builds.",
+    "signUpLead": "Your account keeps your orders and saved builds."
   },
   "catalog": {
     "title": "Catalog",
@@ -64,7 +105,7 @@
     "allCategories": "All categories",
     "brand": "Brand",
     "allBrands": "All brands",
-    "sort": "Sort:",
+    "sort": "Sort",
     "sortNew": "Newest first",
     "sortPriceAsc": "Cheapest first",
     "sortPriceDesc": "Most expensive first",
@@ -93,7 +134,9 @@
       "laptop": "Laptops",
       "prebuilt": "Prebuilt PCs"
     },
-    "rating": "Rated {avg} of 5"
+    "rating": "Rated {avg} of 5",
+    "activeFilters": "Active filters",
+    "removeFilter": "Remove filter: {name}"
   },
   "product": {
     "brand": "Brand",
@@ -106,7 +149,9 @@
     "no": "No",
     "compare": "Compare",
     "inCompare": "In comparison",
-    "openCompare": "Open comparison"
+    "openCompare": "Open comparison",
+    "breadcrumb": "Catalog navigation",
+    "keySpecs": "Key specs"
   },
   "spec": {
     "socket": "Socket",
@@ -161,7 +206,11 @@
     "outOfStock": "Out of stock",
     "add": "Add to cart",
     "decrease": "Decrease",
-    "increase": "Increase"
+    "increase": "Increase",
+    "emptyHint": "Build a PC in the configurator or pick parts from the catalog.",
+    "emptyBuilder": "Open the builder",
+    "summary": "Your order",
+    "count": "{count, plural, one {# item} other {# items}}"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -403,8 +452,6 @@
     "same": "Same as above",
     "rt": "Ray tracing",
     "calculate": "Calculate",
-    "average": "Average FPS across all games: {fps}",
-    "averageB": "Second configuration: {fps}",
     "game": "Game",
     "fpsCol": "Estimated FPS",
     "configA": "Configuration 1",
@@ -426,7 +473,17 @@
     },
     "widgetTitle": "FPS in games",
     "widgetHint": "High preset, no ray tracing. Choose a processor and a graphics card to see the estimate.",
-    "widgetMore": "All games and settings"
+    "widgetMore": "All games and settings",
+    "rigTitle": "Configuration",
+    "settingsTitle": "Game settings",
+    "avgLabel": "Average FPS across all games",
+    "tiersTitle": "Rating scale",
+    "tiers": {
+      "excellent": "100+ — with headroom",
+      "good": "60–99 — smooth",
+      "playable": "30–59 — playable",
+      "poor": "under 30 — weak"
+    }
   },
   "checkout": {
     "title": "Checkout",
@@ -478,7 +535,8 @@
       "yashnobod": "Yashnobod district",
       "yunusobod": "Yunusobod district",
       "yangihayot": "Yangihayot district"
-    }
+    },
+    "mockBadgeShort": "Test mode"
   },
   "account": {
     "title": "My account",
@@ -495,7 +553,9 @@
       "SHIPPED": "Out for delivery",
       "DONE": "Delivered",
       "CANCELLED": "Cancelled"
-    }
+    },
+    "toCatalog": "Browse the catalog",
+    "toBuilder": "Open the builder"
   },
   "notFound": {
     "title": "Page not found",
@@ -508,7 +568,8 @@
     "empty": "Add products to compare from a product page — up to four.",
     "toCatalog": "Go to catalog",
     "remove": "Remove from comparison",
-    "hint": "Specs that differ are shown in bold."
+    "hint": "Specs that differ are marked with a dot and a tinted row.",
+    "spec": "Spec"
   },
   "reviews": {
     "title": "Reviews",

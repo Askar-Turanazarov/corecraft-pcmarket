@@ -2,7 +2,8 @@ import { PackageSearch } from 'lucide-react'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { db } from '@/lib/db'
 import type { Locale } from '@/i18n/routing'
-import { CatalogFilters } from '@/components/shop/catalog-filters'
+import { ActiveFilters, CatalogFilters } from '@/components/shop/catalog-filters'
+import { card, pageTitle } from '@/components/ui/styles'
 import { CatalogSort } from '@/components/shop/catalog-sort'
 import { Pagination } from '@/components/shop/pagination'
 import { ProductCard } from '@/components/shop/product-card'
@@ -37,6 +38,7 @@ export default async function CatalogPage({
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('catalog')
+  const tCat = await getTranslations('catalog.categories')
 
   const query = readQuery(await searchParams)
   const { category, brand } = query
@@ -97,10 +99,12 @@ export default async function CatalogPage({
   const pages = Math.max(1, Math.ceil(total / PER_PAGE))
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
-      <h1 className="text-3xl font-semibold tracking-tight">{t('title')}</h1>
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:py-12">
+      <h1 className={pageTitle}>
+        {category && tCat.has(category) ? tCat(category) : t('title')}
+      </h1>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[16rem_1fr]">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[15rem_1fr] lg:gap-10">
         <CatalogFilters
           query={query}
           locale={locale as Locale}
@@ -111,20 +115,21 @@ export default async function CatalogPage({
           brands={brandFacets.map((row) => ({ value: row.brand, count: row._count._all }))}
         />
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="text-sm text-muted">{t('found', { count: total })}</span>
+            <p className="tabular text-sm text-muted" aria-live="polite">{t('found', { count: total })}</p>
             <CatalogSort query={query} />
           </div>
+          <ActiveFilters query={query} locale={locale as Locale} />
 
           {products.length === 0 ? (
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-border bg-surface px-6 py-20 text-center">
+            <div className={`${card} flex flex-col items-center gap-2 px-6 py-20 text-center`}>
               <PackageSearch className="size-8 text-muted" aria-hidden />
               <p className="font-medium">{t('empty')}</p>
               <p className="text-sm text-muted">{t('emptyHint')}</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} locale={locale as Locale} rating={ratingOf(product.id)} />
               ))}

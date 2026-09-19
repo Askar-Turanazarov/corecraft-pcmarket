@@ -21,15 +21,20 @@ export async function Price({
 
   return (
     <div className={className}>
-      <div className="flex flex-wrap items-baseline gap-2">
-        <span className={cn('font-semibold', large ? 'text-2xl' : 'text-base')}>
+      <div className="flex flex-wrap items-baseline gap-x-2">
+        <span
+          className={cn(
+            'tabular font-display font-semibold tracking-tight',
+            large ? 'text-2xl sm:text-3xl' : 'text-[15px]',
+          )}
+        >
           {formatUzs(amountUzs, locale)}
         </span>
         {oldPriceUzs != null && oldPriceUzs > amountUzs && (
-          <s className="text-sm text-muted">{formatUzs(oldPriceUzs, locale)}</s>
+          <s className="tabular text-sm text-muted">{formatUzs(oldPriceUzs, locale)}</s>
         )}
       </div>
-      <div className="text-xs text-muted">
+      <div className={cn('tabular text-muted', large ? 'mt-1 text-sm' : 'text-xs')}>
         {t('approxUsd', { amount: formatUsdApprox(amountUzs, locale, rate) })}
       </div>
     </div>

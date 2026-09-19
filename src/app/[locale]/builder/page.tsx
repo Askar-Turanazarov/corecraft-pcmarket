@@ -12,17 +12,14 @@ import { buildSummary, summaryLine } from '@/lib/build-summary'
 import { rigFromParts } from '@/lib/fps'
 import { CategoryIcon } from '@/components/shop/category-icon'
 import { keySpecs } from '@/components/shop/key-specs'
-import { productName } from '@/components/shop/localized'
 import { Price } from '@/components/shop/price'
-import { BuildPreview, type ScenePart } from '@/components/builder/build-preview'
+import { BuildPreview } from '@/components/builder/build-preview'
 import { CopyButton } from '@/components/builder/copy-button'
 import { FpsWidget } from '@/components/fps/fps-widget'
 import { badge, button, card, field, pageTitle, panel } from '@/components/ui/styles'
-import { MAX_STORAGE, builderHref, isSlot, loadBuild, readBuildSlugs, summaryLabels } from './build'
+import { MAX_STORAGE, builderHref, isSlot, loadBuild, readBuildSlugs, sceneParts, summaryLabels } from './build'
 import { addBuildToCart, saveBuild } from './actions'
 
-// Порядок, в котором сборщик ставит детали в корпус, — по нему идёт таймлайн 3D-сцены.
-const ASSEMBLY: Slot[] = ['case', 'psu', 'motherboard', 'cpu', 'cooler', 'ram', 'storage', 'gpu']
 
 // Какие слоты задевает каждая ошибка совместимости — их карточки подсвечиваются.
 const ISSUE_SLOTS: Record<string, Slot[]> = {
@@ -116,21 +113,7 @@ export default async function BuilderPage({ params, searchParams }: Props) {
     if (slug) fpsParams.set(slot, slug)
   }
 
-  const sceneParts: ScenePart[] = ASSEMBLY.flatMap((slot) =>
-    items
-      .filter((i) => i.slot === slot)
-      .map(({ product }) => ({
-        slot,
-        name: productName(product, locale),
-        formFactor: product.formFactor,
-        lengthMm: product.lengthMm,
-        heightMm: product.heightMm,
-        memorySticks: product.memorySticks,
-        coolerType: product.coolerType,
-        radiatorMm: product.radiatorMm,
-        storageType: product.storageType,
-      })),
-  )
+  const parts = sceneParts(items, locale as Locale)
 
   const chips = (
     <div className="flex flex-wrap gap-1.5">
@@ -344,7 +327,7 @@ export default async function BuilderPage({ params, searchParams }: Props) {
 
         {/* ── Итог: 3D, совместимость, FPS, покупка ── */}
         <aside className="space-y-4 lg:sticky lg:top-44 lg:self-start">
-          <BuildPreview parts={sceneParts} />
+          <BuildPreview parts={parts} />
 
           <div className={cn(panel, 'space-y-2.5 p-5 text-sm')}>
             {compat.errors.map((issue) => (

@@ -4,8 +4,9 @@ import { cn } from '@/lib/cn'
 import type { Locale } from '@/i18n/routing'
 import type { FpsEstimate, Tier } from '@/lib/fps'
 
-const TIER_CLASS: Record<Tier, string> = {
-  excellent: 'text-accent',
+/** Цвет оценки: плазма — с запасом, обычный текст — комфортно, жёлтый — играбельно, красный — слабо. */
+export const TIER_CLASS: Record<Tier, string> = {
+  excellent: 'text-plasma',
   good: 'text-foreground',
   playable: 'text-warning',
   poor: 'text-danger',
@@ -30,27 +31,32 @@ export async function FpsCell({
   const t = await getTranslations('fps')
   if (!estimate) return <span className="text-muted">—</span>
   // В узкой таблице виджета — только число с цветом оценки.
-  if (compact) return <span className={cn('font-medium', TIER_CLASS[estimate.tier])}>{estimate.avg}</span>
+  if (compact) return <span className={cn('tabular font-medium', TIER_CLASS[estimate.tier])}>{estimate.avg}</span>
 
   const warnings = estimate.warnings.map((w) => t(`warnings.${w}`)).join('. ')
   return (
-    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-      <span className={cn('text-lg font-semibold tabular-nums', TIER_CLASS[estimate.tier])}>
-        {estimate.avg} <span className="text-xs font-normal text-muted">FPS</span>
-      </span>
-      {delta !== undefined && delta !== 0 && (
-        <span className={cn('text-xs tabular-nums', delta > 0 ? 'text-accent' : 'text-danger')}>
-          {delta > 0 ? `+${delta}` : delta}
+    <div className="space-y-1">
+      <div className="flex items-baseline gap-2">
+        <span className={cn('tabular font-display text-xl font-semibold tracking-tight', TIER_CLASS[estimate.tier])}>
+          {estimate.avg}
         </span>
-      )}
-      <span className="text-xs text-muted">{t('low1', { fps: estimate.low1 })}</span>
-      <span className="text-xs text-muted">{t(`bound.${estimate.bound}`)}</span>
-      {warnings && (
-        <span className="flex items-center gap-1 text-xs text-warning" title={warnings}>
-          <AlertTriangle className="size-3.5" aria-hidden />
-          <span className="sr-only md:not-sr-only">{warnings}</span>
-        </span>
-      )}
+        <span className="text-xs text-muted">FPS</span>
+        {delta !== undefined && delta !== 0 && (
+          <span className={cn('tabular text-xs font-medium', delta > 0 ? 'text-plasma' : 'text-danger')}>
+            {delta > 0 ? `+${delta}` : delta}
+          </span>
+        )}
+      </div>
+      <div className="tabular flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted">
+        <span>{t('low1', { fps: estimate.low1 })}</span>
+        <span>{t(`bound.${estimate.bound}`)}</span>
+        {warnings && (
+          <span className="flex items-center gap-1 text-warning" title={warnings}>
+            <AlertTriangle className="size-3.5 shrink-0" aria-hidden />
+            <span className="sr-only md:not-sr-only">{warnings}</span>
+          </span>
+        )}
+      </div>
     </div>
   )
 }

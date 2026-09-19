@@ -124,13 +124,13 @@ export async function SpecTable({ product }: { product: Record<string, unknown> 
 
   return (
     <table className="w-full text-sm">
-      <tbody>
+      <tbody className="divide-y divide-border">
         {rows.map(([label, value]) => (
-          <tr key={label} className="border-b border-border last:border-0">
-            <th scope="row" className="py-2 pr-4 text-left font-normal text-muted">
+          <tr key={label}>
+            <th scope="row" className="w-1/2 py-2.5 pr-4 text-left align-top font-normal text-muted">
               {label}
             </th>
-            <td className="py-2 text-right">{value}</td>
+            <td className="tabular py-2.5 text-right align-top font-medium">{value}</td>
           </tr>
         ))}
       </tbody>

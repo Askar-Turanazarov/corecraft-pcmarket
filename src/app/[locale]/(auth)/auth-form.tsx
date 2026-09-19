@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
+import { button, field } from '@/components/ui/styles'
 import type { AuthState } from './actions'
 
 type Props = {
@@ -17,25 +18,26 @@ export function AuthForm({ mode, action, next }: Props) {
   const isSignUp = mode === 'signUp'
 
   return (
-    <form action={formAction} className="w-full max-w-sm space-y-4">
+    <form action={formAction} className="w-full space-y-5">
       {next && <input type="hidden" name="next" value={next} />}
-      <h1 className="text-2xl font-semibold">
-        {isSignUp ? t('signUpTitle') : t('signInTitle')}
-      </h1>
+      <div className="space-y-1.5">
+        <h1 className="font-display text-2xl font-semibold tracking-tight">
+          {isSignUp ? t('signUpTitle') : t('signInTitle')}
+        </h1>
+        <p className="text-sm text-muted">{isSignUp ? t('signUpLead') : t('signInLead')}</p>
+      </div>
 
       {isSignUp && <Field name="name" label={t('name')} />}
       <Field name="email" type="email" label={t('email')} required />
       <Field name="password" type="password" label={t('password')} required minLength={8} />
 
       {state?.error && (
-        <p className="text-sm text-danger">{t(state.error as 'invalidCredentials')}</p>
+        <p role="alert" className="rounded-[var(--radius-control)] border border-danger/40 bg-danger/10 p-3 text-sm text-danger">
+          {t(state.error as 'invalidCredentials')}
+        </p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-lg bg-accent py-2.5 font-medium text-on-accent hover:bg-accent-strong disabled:opacity-60"
-      >
+      <button type="submit" disabled={pending} className={button('primary', 'lg', 'w-full')}>
         {isSignUp ? t('submitSignUp') : t('submitSignIn')}
       </button>
 
@@ -43,7 +45,7 @@ export function AuthForm({ mode, action, next }: Props) {
         {isSignUp ? t('haveAccount') : t('noAccount')}{' '}
         <Link
           href={`${isSignUp ? '/sign-in' : '/sign-up'}${next ? `?next=${encodeURIComponent(next)}` : ''}`}
-          className="text-accent hover:underline"
+          className="inline-flex min-h-11 items-center font-medium text-accent hover:underline"
         >
           {isSignUp ? t('submitSignIn') : t('submitSignUp')}
         </Link>
@@ -55,10 +57,10 @@ export function AuthForm({ mode, action, next }: Props) {
 function Field({ name, label, ...rest }: { name: string; label: string } & React.ComponentProps<'input'>) {
   return (
     <label className="block space-y-1.5">
-      <span className="text-sm text-muted">{label}</span>
+      <span className="text-sm font-medium">{label}</span>
       <input
         name={name}
-        className="w-full rounded-lg border border-border bg-surface px-3 py-2 outline-none focus:border-accent"
+        className={field}
         {...rest}
       />
     </label>

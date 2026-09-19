@@ -1,7 +1,7 @@
 {
   "brand": {
     "name": "CoreCraft PC",
-    "tagline": "Toshkentda kompyuter butlovchi qismlari va yig'uv"
+    "tagline": "Toshkentda kompyuter butlovchi qismlari va yig‘uv"
   },
   "nav": {
     "catalog": "Katalog",
@@ -15,10 +15,10 @@
     "main": "Asosiy menyu"
   },
   "home": {
-    "title": "O'z kompyuteringizni yig'ing",
-    "subtitle": "Butlovchi qismlarni tanlang, moslikni kuzating va yig'ilma o'yinlaringizda qancha kadr berishini ko'ring.",
+    "title": "O‘z kompyuteringizni yig‘ing",
+    "subtitle": "Butlovchi qismlarni tanlang, moslikni kuzating va yig‘ma o‘yinlaringizda qancha kadr berishini ko‘ring.",
     "ctaBuilder": "Konstruktorni ochish",
-    "ctaCatalog": "Katalogni ko'rish",
+    "ctaCatalog": "Katalogni ko‘rish",
     "categories": "Kategoriyalar",
     "features": {
       "builder": {
@@ -33,11 +33,50 @@
         "title": "Telegramda to‘lov",
         "text": "So‘mdagi hisob to‘g‘ridan-to‘g‘ri Telegramda, Click yoki Payme orqali, Toshkent bo‘ylab yetkazib berish."
       }
+    },
+    "stats": {
+      "products": "katalogdagi tovar",
+      "games": "FPS hisoblanadigan o‘yin"
+    },
+    "showcase": {
+      "title": "Namunaviy yig‘ma",
+      "compatible": "Barcha qismlar mos",
+      "power": "Yuklamada taxminan {w} Vt",
+      "open": "Konstruktorda ochish"
+    },
+    "paths": {
+      "title": "Nimadan boshlash kerak",
+      "builder": {
+        "title": "Kompyuterni slotlar bo‘yicha yig‘ing",
+        "text": "Protsessor, plata, xotira va boshqalarni tanlang — konstruktor mos kelmaydiganlarini darhol chiqarib tashlaydi va kompyuterni 3D da yig‘adi.",
+        "p1": "Soket, xotira, o‘lchamlar va quvvat blokini tekshirish",
+        "p2": "Tanlash davomida 3D yig‘ma va FPS bahosi",
+        "p3": "Yig‘maga havola — saqlang yoki do‘stingizga yuboring",
+        "cta": "Konstruktorni ochish"
+      },
+      "catalog": {
+        "title": "Butlovchi qismlar katalogi",
+        "text": "Brend, narx va xususiyatlar bo‘yicha filtrlar, tovarlarni solishtirish va xaridorlar sharhlari.",
+        "meta": "{products} ta tovar · {brands} ta brend",
+        "cta": "Katalogni ko‘rish"
+      },
+      "fps": {
+        "title": "Xariddan oldin FPS",
+        "text": "Yig‘ma {count} ta o‘yinda past, o‘rta, yuqori va ultra sozlamalarda qancha kadr berishi.",
+        "cta": "FPS ni hisoblash"
+      }
+    },
+    "categoriesAll": "Butun katalog",
+    "categoryCount": "tovar",
+    "ready": {
+      "title": "Tayyor yig‘malar",
+      "text": "CoreCraft ustaxonasida yig‘ilgan va sinovdan o‘tgan — birinchi o‘yin kompyuteridan 4K tizimigacha.",
+      "all": "Barcha tayyor yig‘malar"
     }
   },
   "auth": {
     "signInTitle": "Kirish",
-    "signUpTitle": "Ro'yxatdan o'tish",
+    "signUpTitle": "Ro‘yxatdan o‘tish",
     "email": "Elektron pochta",
     "password": "Parol",
     "name": "Ism",
@@ -45,35 +84,37 @@
     "submitSignUp": "Hisob yaratish",
     "telegram": "Telegram orqali kirish",
     "haveAccount": "Hisobingiz bormi?",
-    "noAccount": "Hisobingiz yo'qmi?",
-    "invalidCredentials": "Pochta yoki parol noto'g'ri",
-    "emailTaken": "Bu pochta allaqachon ro'yxatdan o'tgan",
-    "orTelegram": "Yoki Telegram orqali kiring:"
+    "noAccount": "Hisobingiz yo‘qmi?",
+    "invalidCredentials": "Pochta yoki parol noto‘g‘ri",
+    "emailTaken": "Bu pochta allaqachon ro‘yxatdan o‘tgan",
+    "orTelegram": "Yoki Telegram orqali kiring:",
+    "signInLead": "Buyurtma berish va yig‘malarni saqlash uchun kiring.",
+    "signUpLead": "Akkaunt buyurtmalaringiz va saqlangan yig‘malaringizni saqlaydi."
   },
   "catalog": {
     "title": "Katalog",
     "filters": "Filtrlar",
     "reset": "Tozalash",
-    "search": "Nomi bo'yicha qidirish",
+    "search": "Nomi bo‘yicha qidirish",
     "searchPlaceholder": "Masalan, RTX 4070",
-    "price": "Narx, so'm",
+    "price": "Narx, so‘m",
     "priceFrom": "dan",
     "priceTo": "gacha",
-    "apply": "Qo'llash",
+    "apply": "Qo‘llash",
     "category": "Toifa",
     "allCategories": "Barcha toifalar",
     "brand": "Brend",
     "allBrands": "Barcha brendlar",
-    "sort": "Saralash:",
+    "sort": "Saralash",
     "sortNew": "Avval yangilari",
     "sortPriceAsc": "Avval arzonlari",
     "sortPriceDesc": "Avval qimmatlari",
-    "sortName": "Nomi bo'yicha",
+    "sortName": "Nomi bo‘yicha",
     "found": "Topilgan mahsulotlar: {count}",
     "empty": "Hech narsa topilmadi",
-    "emptyHint": "Filtrlarni o'zgartiring yoki qidiruvni tozalang.",
+    "emptyHint": "Filtrlarni o‘zgartiring yoki qidiruvni tozalang.",
     "inStock": "Sotuvda bor",
-    "outOfStock": "Sotuvda yo'q",
+    "outOfStock": "Sotuvda yo‘q",
     "pagination": "Katalog sahifalari",
     "prev": "Oldingi sahifa",
     "next": "Keyingi sahifa",
@@ -91,22 +132,26 @@
       "mouse": "Sichqonchalar",
       "headset": "Quloqchinlar",
       "laptop": "Noutbuklar",
-      "prebuilt": "Tayyor yig'ilmalar"
+      "prebuilt": "Tayyor yig‘ilmalar"
     },
-    "rating": "Baho: 5 dan {avg}"
+    "rating": "Baho: 5 dan {avg}",
+    "activeFilters": "Faol filtrlar",
+    "removeFilter": "Filtrni olib tashlash: {name}"
   },
   "product": {
     "brand": "Brend",
     "model": "Model",
     "specs": "Xususiyatlar",
-    "noSpecs": "Xususiyatlar hali to'ldirilmagan",
+    "noSpecs": "Xususiyatlar hali to‘ldirilmagan",
     "description": "Tavsif",
-    "noDescription": "Tavsif hali qo'shilmagan",
+    "noDescription": "Tavsif hali qo‘shilmagan",
     "yes": "Bor",
-    "no": "Yo'q",
+    "no": "Yo‘q",
     "compare": "Solishtirish",
     "inCompare": "Solishtirishda",
-    "openCompare": "Solishtirishni ochish"
+    "openCompare": "Solishtirishni ochish",
+    "breadcrumb": "Katalog bo‘yicha navigatsiya",
+    "keySpecs": "Asosiy xususiyatlar"
   },
   "spec": {
     "socket": "Soket",
@@ -119,7 +164,7 @@
     "memorySlots": "Xotira slotlari",
     "memoryGb": "Xotira hajmi",
     "memoryMhz": "Xotira chastotasi",
-    "memorySticks": "To'plamdagi planka soni",
+    "memorySticks": "To‘plamdagi planka soni",
     "vramGb": "Video xotira",
     "storageGb": "Saqlagich hajmi",
     "storageType": "Saqlagich turi",
@@ -133,9 +178,9 @@
     "m2Slots": "M.2 slotlari",
     "sataPorts": "SATA portlari",
     "pcieVersion": "PCIe versiyasi",
-    "supportsFormFactors": "Qo'llab-quvvatlanadigan form-faktorlar",
-    "supportsRadiators": "Qo'llab-quvvatlanadigan radiatorlar",
-    "supportsSockets": "Qo'llab-quvvatlanadigan soketlar",
+    "supportsFormFactors": "Qo‘llab-quvvatlanadigan form-faktorlar",
+    "supportsRadiators": "Qo‘llab-quvvatlanadigan radiatorlar",
+    "supportsSockets": "Qo‘llab-quvvatlanadigan soketlar",
     "lengthMmCase": "Videokartaning maks. uzunligi",
     "heightMmCase": "Kulerning maks. balandligi"
   },
@@ -151,17 +196,21 @@
   },
   "cart": {
     "title": "Savat",
-    "empty": "Savat hozircha bo'sh",
-    "emptyCta": "Katalogga o'tish",
+    "empty": "Savat hozircha bo‘sh",
+    "emptyCta": "Katalogga o‘tish",
     "quantity": "Miqdori",
-    "remove": "O'chirish",
+    "remove": "O‘chirish",
     "total": "Jami",
     "checkout": "Buyurtma berish",
     "continue": "Xaridni davom ettirish",
     "outOfStock": "Mavjud emas",
     "add": "Savatga",
     "decrease": "Kamaytirish",
-    "increase": "Ko‘paytirish"
+    "increase": "Ko‘paytirish",
+    "emptyHint": "Kompyuterni konstruktorda yig‘ing yoki katalogdan qismlarni tanlang.",
+    "emptyBuilder": "Konstruktorni ochish",
+    "summary": "Buyurtmangiz",
+    "count": "{count} ta mahsulot"
   },
   "common": {
     "approxUsd": "≈ {amount}",
@@ -169,7 +218,7 @@
     "error": "Nimadir xato ketdi"
   },
   "footer": {
-    "city": "Toshkent, O'zbekiston",
+    "city": "Toshkent, O‘zbekiston",
     "rights": "Barcha huquqlar himoyalangan",
     "sections": "Do‘kon bo‘limlari",
     "deliveryTitle": "Toshkent bo‘ylab yetkazish",
@@ -195,13 +244,13 @@
     "formFactor": "Form-faktor",
     "heatpipes": "Issiqlik naychalari",
     "heatspreader": "Xotira radiatori",
-    "igpu": "O'rnatilgan grafika",
+    "igpu": "O‘rnatilgan grafika",
     "interface": "Interfeys",
     "l3Cache": "L3 kesh",
     "lan": "Tarmoq kontrolleri",
     "latency": "Kechikishlar",
     "material": "Material",
-    "maxTurboPower": "Maksimal iste'mol",
+    "maxTurboPower": "Maksimal iste’mol",
     "memoryBus": "Xotira shinasi",
     "memoryType": "Xotira turi",
     "modular": "Ajraladigan kabellar",
@@ -217,7 +266,7 @@
     "pump": "Nasos",
     "purpose": "Vazifasi",
     "radiatorThickness": "Radiator qalinligi",
-    "read": "O'qish tezligi",
+    "read": "O‘qish tezligi",
     "rpm": "Aylanishlar",
     "standard": "Standart",
     "streamProcessors": "Oqim protsessorlari",
@@ -270,8 +319,8 @@
     "anc": "Faol shovqin bostirish"
   },
   "specValue": {
-    "no": "Yo'q",
-    "full": "To'liq",
+    "no": "Yo‘q",
+    "full": "To‘liq",
     "partial": "Qisman",
     "lifetime": "Umrbod",
     "yes": "Bor",
@@ -403,8 +452,6 @@
     "same": "Yuqoridagi bilan bir xil",
     "rt": "Nur kuzatuvi (ray tracing)",
     "calculate": "Hisoblash",
-    "average": "Barcha o‘yinlar bo‘yicha o‘rtacha FPS: {fps}",
-    "averageB": "Ikkinchi konfiguratsiyada: {fps}",
     "game": "O‘yin",
     "fpsCol": "FPS taxmini",
     "configA": "1-konfiguratsiya",
@@ -426,7 +473,17 @@
     },
     "widgetTitle": "O‘yinlarda FPS",
     "widgetHint": "Yuqori sozlamalar, nur kuzatuvisiz. Taxminni ko‘rish uchun protsessor va videokartani tanlang.",
-    "widgetMore": "Barcha o‘yinlar va sozlamalar"
+    "widgetMore": "Barcha o‘yinlar va sozlamalar",
+    "rigTitle": "Konfiguratsiya",
+    "settingsTitle": "O‘yin sozlamalari",
+    "avgLabel": "Barcha o‘yinlar bo‘yicha o‘rtacha FPS",
+    "tiersTitle": "Baholash shkalasi",
+    "tiers": {
+      "excellent": "100+ — zaxira bilan",
+      "good": "60–99 — qulay",
+      "playable": "30–59 — o‘ynasa bo‘ladi",
+      "poor": "30 gacha — zaif"
+    }
   },
   "checkout": {
     "title": "Buyurtmani rasmiylashtirish",
@@ -478,7 +535,8 @@
       "yashnobod": "Yashnobod tumani",
       "yunusobod": "Yunusobod tumani",
       "yangihayot": "Yangihayot tumani"
-    }
+    },
+    "mockBadgeShort": "Test rejimi"
   },
   "account": {
     "title": "Shaxsiy kabinet",
@@ -495,7 +553,9 @@
       "SHIPPED": "Yetkazib berishga topshirildi",
       "DONE": "Yetkazib berildi",
       "CANCELLED": "Bekor qilingan"
-    }
+    },
+    "toCatalog": "Katalogga o‘tish",
+    "toBuilder": "Konstruktorni ochish"
   },
   "notFound": {
     "title": "Sahifa topilmadi",
@@ -508,7 +568,8 @@
     "empty": "Tovar sahifasidan solishtirishga qo‘shing — to‘rttagacha.",
     "toCatalog": "Katalogga o‘tish",
     "remove": "Solishtirishdan olib tashlash",
-    "hint": "Farq qiladigan xususiyatlar qalin harf bilan ajratilgan."
+    "hint": "Farq qiladigan xususiyatlar nuqta va fon bilan belgilangan.",
+    "spec": "Xususiyat"
   },
   "reviews": {
     "title": "Sharhlar",

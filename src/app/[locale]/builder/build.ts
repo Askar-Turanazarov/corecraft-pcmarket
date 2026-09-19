@@ -1,6 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { db } from '@/lib/db'
 import { SLOTS, type Build, type Slot } from '@/lib/compat'
+import type { Locale } from '@/i18n/routing'
+import { productName } from '@/components/shop/localized'
+import type { ScenePart } from '@/components/builder/build-preview'
 
 // Сборка живёт в адресе: /builder?cpu=<slug>&gpu=<slug>&storage=a,b
 // Ссылка на страницу — это уже ссылка на сборку, хранилище не нужно.
@@ -69,4 +72,26 @@ export async function summaryLabels(locale: string) {
     ghz: u('ghz'), gb: u('gb'), mhz: u('mhz'), w: u('w'),
     ram: t('ram'), ssdM2: t('ssdM2'), ssd: t('ssd'), hdd: t('hdd'),
   }
+}
+
+// Порядок, в котором сборщик ставит детали в корпус, — по нему идёт таймлайн 3D-сцены.
+const ASSEMBLY: Slot[] = ['case', 'psu', 'motherboard', 'cpu', 'cooler', 'ram', 'storage', 'gpu']
+
+/** Детали сборки в порядке установки — то, что рисует 3D-сцена. */
+export function sceneParts(items: Awaited<ReturnType<typeof loadBuild>>['items'], locale: Locale): ScenePart[] {
+  return ASSEMBLY.flatMap((slot) =>
+    items
+      .filter((i) => i.slot === slot)
+      .map(({ product }) => ({
+        slot,
+        name: productName(product, locale),
+        formFactor: product.formFactor,
+        lengthMm: product.lengthMm,
+        heightMm: product.heightMm,
+        memorySticks: product.memorySticks,
+        coolerType: product.coolerType,
+        radiatorMm: product.radiatorMm,
+        storageType: product.storageType,
+      })),
+  )
 }

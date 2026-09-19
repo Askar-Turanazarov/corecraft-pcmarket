@@ -7,6 +7,10 @@ import { getCart } from '@/lib/cart'
 import { isMockPayments } from '@/lib/telegram/bot'
 import { Price } from '@/components/shop/price'
 import { productName } from '@/components/shop/localized'
+import { CategoryIcon } from '@/components/shop/category-icon'
+import { pageTitle, panel } from '@/components/ui/styles'
+import { cn } from '@/lib/cn'
+import { formatUzs } from '@/lib/money'
 import { CheckoutForm } from './checkout-form'
 
 type Props = { params: Promise<{ locale: string }> }
@@ -31,32 +35,44 @@ export default async function CheckoutPage({ params }: Props) {
   if (cart.items.length === 0) redirect({ href: '/cart', locale })
 
   return (
-    <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 md:grid-cols-[1fr_22rem]">
-      <section>
-        <h1 className="text-2xl font-semibold">{t('title')}</h1>
-        <p className="mt-2 text-sm text-muted">{t('deliveryNote')}</p>
-        <div className="mt-6">
-          <CheckoutForm defaultName={session?.user?.name ?? ''} mock={isMockPayments()} />
-        </div>
-      </section>
+    <div className="mx-auto max-w-6xl px-4 py-10">
+      <h1 className={pageTitle}>{t('title')}</h1>
+      <p className="mt-2 max-w-2xl text-muted">{t('deliveryNote')}</p>
 
-      <aside className="h-fit rounded-xl border border-border bg-surface p-4 text-sm">
-        <h2 className="font-medium">{t('summary')}</h2>
-        <ul className="mt-3 space-y-2">
-          {cart.items.map(({ product, qty }) => (
-            <li key={product.id} className="flex justify-between gap-3">
-              <Link href={`/catalog/${product.slug}`} className="line-clamp-2 hover:text-accent">
-                {productName(product, locale)}
-              </Link>
-              <span className="shrink-0 text-muted">×{qty}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4 border-t border-border pt-4">
-          <p className="text-muted">{t('total')}</p>
-          <Price amountUzs={cart.totalUzs} locale={locale} large />
-        </div>
-      </aside>
+      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_24rem]">
+        <section className={cn(panel, 'p-5 sm:p-8')}>
+          <CheckoutForm defaultName={session?.user?.name ?? ''} mock={isMockPayments()} />
+        </section>
+
+        <aside className={cn(panel, 'h-fit p-6 lg:sticky lg:top-24')}>
+          <h2 className="font-medium">{t('summary')}</h2>
+          <ul className="mt-4 space-y-3 text-sm">
+            {cart.items.map(({ product, qty }) => (
+              <li key={product.id} className="flex items-center gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-[var(--radius-control)] border border-border bg-surface-2">
+                  <CategoryIcon category={product.category} className="size-4 text-accent" />
+                </span>
+                <Link href={`/catalog/${product.slug}`} className="line-clamp-2 min-w-0 flex-1 hover:text-accent">
+                  {productName(product, locale)}
+                </Link>
+                <span className="tabular shrink-0 text-right">
+                  <span className="block">{formatUzs(product.priceUzs * qty, locale)}</span>
+                  {qty > 1 && <span className="block text-xs text-muted">×{qty}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 border-t border-border pt-5">
+            <p className="text-sm text-muted">{t('total')}</p>
+            <Price
+              amountUzs={cart.totalUzs}
+              locale={locale}
+              large
+              className="mt-1"
+            />
+          </div>
+        </aside>
+      </div>
     </div>
   )
 }

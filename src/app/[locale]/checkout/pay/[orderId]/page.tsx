@@ -8,6 +8,8 @@ import { db } from '@/lib/db'
 import { orderNumber } from '@/lib/orders'
 import { isMockPayments } from '@/lib/telegram/bot'
 import { Price } from '@/components/shop/price'
+import { badge, button, panel } from '@/components/ui/styles'
+import { cn } from '@/lib/cn'
 import { mockPay } from '../../actions'
 
 // Страница-заглушка вместо счёта Telegram: работает, только пока не задан токен провайдера.
@@ -27,27 +29,30 @@ export default async function MockPayPage({
 
   return (
     <section className="mx-auto max-w-md px-4 py-16">
-      <div className="rounded-xl border border-warning/40 bg-surface p-6">
-        <p className="flex items-center gap-2 text-sm text-warning">
-          <FlaskConical className="size-4" />
-          {t('mockBadge')}
-        </p>
-        <h1 className="mt-4 text-xl font-semibold">{t('payTitle', { number: orderNumber(order.id) })}</h1>
-        <Price amountUzs={order.totalUzs} locale={locale as Locale} large className="mt-3" />
+      <div className={cn(panel, 'glow p-6 sm:p-8')}>
+        <span className={badge('warning', 'px-3 py-1')}>
+          <FlaskConical className="size-3.5" aria-hidden />
+          {t('mockBadgeShort')}
+        </span>
+        <h1 className="mt-5 font-medium">{t('payTitle', { number: orderNumber(order.id) })}</h1>
+        <Price
+          amountUzs={order.totalUzs}
+          locale={locale as Locale}
+          large
+          className="mt-2"
+        />
+        <p className="mt-4 text-sm text-warning">{t('mockBadge')}</p>
 
         {order.status === 'PENDING' ? (
           <form action={mockPay.bind(null, order.id)} className="mt-6">
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-accent py-3 font-medium text-on-accent hover:bg-accent-strong"
-            >
+            <button type="submit" className={button('primary', 'lg', 'w-full')}>
               {t('mockPay')}
             </button>
           </form>
         ) : (
           <p className="mt-6 text-sm text-muted">{t('alreadyPaid')}</p>
         )}
-        <Link href="/account" className="mt-4 block text-center text-sm text-muted hover:text-foreground">
+        <Link href="/account" className={button('ghost', 'md', 'mt-2 w-full')}>
           {t('later')}
         </Link>
       </div>

@@ -10,24 +10,30 @@ const OPTIONS = [
   { value: 'name', label: 'sortName' },
 ] as const
 
+/** Сегментированный переключатель: на узком экране прокручивается внутри себя, а не страница. */
 export async function CatalogSort({ query }: { query: Query }) {
   const t = await getTranslations('catalog')
 
   return (
-    <div className="flex flex-wrap items-center gap-1.5 text-xs">
-      <span className="text-muted">{t('sort')}</span>
-      {OPTIONS.map(({ value, label }) => (
-        <Link
-          key={label}
-          href={catalogHref(query, { sort: value })}
-          className={cn(
-            'rounded-full border border-border px-3 py-1 hover:bg-surface',
-            (query.sort ?? undefined) === value && 'border-accent text-accent',
-          )}
-        >
-          {t(label)}
-        </Link>
-      ))}
-    </div>
+    <nav aria-label={t('sort')} className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+      <div className="inline-flex gap-1 rounded-[var(--radius-control)] border border-border bg-surface-2 p-1 text-sm">
+        {OPTIONS.map(({ value, label }) => {
+          const active = (query.sort ?? undefined) === value
+          return (
+            <Link
+              key={label}
+              href={catalogHref(query, { sort: value })}
+              aria-current={active ? 'true' : undefined}
+              className={cn(
+                'flex min-h-10 items-center whitespace-nowrap rounded-[6px] px-3 transition-colors duration-200 sm:min-h-8',
+                active ? 'bg-surface font-medium text-foreground ring-1 ring-border' : 'text-muted hover:text-foreground',
+              )}
+            >
+              {t(label)}
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
   )
 }

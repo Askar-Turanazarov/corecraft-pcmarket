@@ -73,7 +73,8 @@ function hasWebGL() {
 }
 const subscribe = () => () => {}
 
-export function BuildPreview({ parts }: { parts: ScenePart[] }) {
+/** compact — только сцена, без камер и таймлайна (витрина на главной). */
+export function BuildPreview({ parts, compact = false }: { parts: ScenePart[]; compact?: boolean }) {
   const t = useTranslations('scene')
   const sliderId = useId()
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -141,50 +142,54 @@ export function BuildPreview({ parts }: { parts: ScenePart[] }) {
         {webglOk === null ? <SceneLoading /> : <BuildScene parts={parts.slice(0, shown)} view={view} />}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        {VIEWS.map((v) => (
-          <button
-            key={v}
-            type="button"
-            onClick={() => setView((cur) => ({ name: v, id: cur.id + 1 }))}
-            className={cn(btn, view.name === v && 'border-accent text-accent')}
-          >
-            {t(v)}
-          </button>
-        ))}
-        <button type="button" onClick={snapshot} className={cn(btn, 'ml-auto flex items-center gap-2')}>
-          <Camera className="size-4" aria-hidden />
-          {t('snapshot')}
-        </button>
-      </div>
+      {!compact && (
+        <>
+          <div className="flex flex-wrap items-center gap-2">
+            {VIEWS.map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setView((cur) => ({ name: v, id: cur.id + 1 }))}
+                className={cn(btn, view.name === v && 'border-accent text-accent')}
+              >
+                {t(v)}
+              </button>
+            ))}
+            <button type="button" onClick={snapshot} className={cn(btn, 'ml-auto flex items-center gap-2')}>
+              <Camera className="size-4" aria-hidden />
+              {t('snapshot')}
+            </button>
+          </div>
 
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={play}
-          disabled={total === 0}
-          aria-label={playing ? t('pause') : t('play')}
-          className={cn(btn, 'p-2 disabled:opacity-50')}
-        >
-          {playing ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-        </button>
-        <label htmlFor={sliderId} className="sr-only">
-          {t('timeline')}
-        </label>
-        <input
-          id={sliderId}
-          type="range"
-          min={0}
-          max={total}
-          value={shown}
-          onChange={(e) => {
-            setPlaying(false)
-            setStep(Number(e.target.value))
-          }}
-          className="min-w-0 flex-1 accent-accent"
-        />
-        <span className="shrink-0 text-sm tabular-nums text-muted">{t('step', { n: shown, total })}</span>
-      </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={play}
+              disabled={total === 0}
+              aria-label={playing ? t('pause') : t('play')}
+              className={cn(btn, 'p-2 disabled:opacity-50')}
+            >
+              {playing ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
+            </button>
+            <label htmlFor={sliderId} className="sr-only">
+              {t('timeline')}
+            </label>
+            <input
+              id={sliderId}
+              type="range"
+              min={0}
+              max={total}
+              value={shown}
+              onChange={(e) => {
+                setPlaying(false)
+                setStep(Number(e.target.value))
+              }}
+              className="min-w-0 flex-1 accent-accent"
+            />
+            <span className="shrink-0 text-sm tabular-nums text-muted">{t('step', { n: shown, total })}</span>
+          </div>
+        </>
+      )}
     </div>
   )
 }

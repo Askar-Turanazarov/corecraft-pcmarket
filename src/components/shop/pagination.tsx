@@ -4,7 +4,8 @@ import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
 import { catalogHref, type Query } from './query'
 
-const stepClass = 'flex size-9 items-center justify-center rounded-lg border border-border hover:bg-surface'
+const cell =
+  'tabular flex size-11 items-center justify-center rounded-[var(--radius-control)] border transition-colors duration-200 sm:size-10'
 
 export async function Pagination({
   query,
@@ -24,12 +25,12 @@ export async function Pagination({
   const numbers = Array.from({ length: end - start + 1 }, (_, i) => start + i)
 
   return (
-    <nav className="flex items-center justify-center gap-1.5 text-sm" aria-label={t('pagination')}>
+    <nav className="flex flex-wrap items-center justify-center gap-1.5 pt-4 text-sm" aria-label={t('pagination')}>
       {page > 1 && (
         <Link
           href={catalogHref(query, { page: String(page - 1) })}
           aria-label={t('prev')}
-          className={stepClass}
+          className={cn(cell, 'border-border bg-surface hover:border-accent/60')}
         >
           <ChevronLeft className="size-4" />
         </Link>
@@ -41,8 +42,10 @@ export async function Pagination({
           href={catalogHref(query, { page: n === 1 ? undefined : String(n) })}
           aria-current={n === page ? 'page' : undefined}
           className={cn(
-            'flex size-9 items-center justify-center rounded-lg border',
-            n === page ? 'border-accent text-accent' : 'border-border hover:bg-surface',
+            cell,
+            n === page
+              ? 'border-accent bg-accent font-medium text-on-accent'
+              : 'border-border bg-surface text-muted hover:border-accent/60 hover:text-foreground',
           )}
         >
           {n}
@@ -53,7 +56,7 @@ export async function Pagination({
         <Link
           href={catalogHref(query, { page: String(page + 1) })}
           aria-label={t('next')}
-          className={stepClass}
+          className={cn(cell, 'border-border bg-surface hover:border-accent/60')}
         >
           <ChevronRight className="size-4" />
         </Link>

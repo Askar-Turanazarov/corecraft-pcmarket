@@ -1,15 +1,17 @@
 import type { Metadata } from 'next'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { AlertTriangle, Info } from 'lucide-react'
+import { AlertTriangle, ChevronDown, Info } from 'lucide-react'
+import { cn } from '@/lib/cn'
 import { db } from '@/lib/db'
 import { getFpsConstants } from '@/lib/settings'
 import { getPathname } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import {
   PRESETS, RESOLUTIONS, UPSCALING, estimateFps, rigFromParts,
-  type FpsEstimate, type FpsSettings, type Preset, type Resolution, type Upscaling,
+  type FpsEstimate, type FpsSettings, type Preset, type Resolution, type Tier, type Upscaling,
 } from '@/lib/fps'
-import { FpsCell, gameTitle } from '@/components/fps/fps-cell'
+import { FpsCell, TIER_CLASS, gameTitle } from '@/components/fps/fps-cell'
+import { button, field, pageTitle, panel } from '@/components/ui/styles'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -93,116 +95,166 @@ export default async function FpsPage({ params, searchParams }: Props) {
         ))}
     </>
   )
-  const selectClass = 'w-full rounded-lg border border-border bg-surface px-3 py-2 outline-none focus:border-accent'
+  const selectClass = cn(field, 'text-sm')
+  const labelClass = 'block space-y-1.5'
+  const labelText = 'text-sm text-muted'
+  const avgA = avgOf('a')
+  const avgB = compare ? avgOf('b') : null
+  const TIERS: Tier[] = ['excellent', 'good', 'playable', 'poor']
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">{t('title')}</h1>
-      <p className="mt-2 flex gap-2 text-sm text-muted">
-        <Info className="mt-0.5 size-4 shrink-0" />
+      <h1 className={pageTitle}>{t('title')}</h1>
+      <p className="mt-3 flex max-w-3xl gap-2 text-sm text-muted">
+        <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
         {t('disclaimer')}
       </p>
 
-      <form action={getPathname({ href: '/fps', locale })} className="mt-8 grid gap-4 rounded-xl border border-border bg-surface p-4 text-sm md:grid-cols-3">
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('cpu')}</span>
-          <select name="cpu" defaultValue={sel.cpu} className={selectClass}>{options('cpu')}</select>
-        </label>
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('gpu')}</span>
-          <select name="gpu" defaultValue={sel.gpu} className={selectClass}>{options('gpu')}</select>
-        </label>
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('ram')}</span>
-          <select name="ram" defaultValue={sel.ram} className={selectClass}>{options('ram', t('ramAny'))}</select>
-        </label>
-
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('resolution')}</span>
-          <select name="res" defaultValue={settings.resolution} className={selectClass}>
-            {RESOLUTIONS.map((r) => <option key={r} value={r}>{t(`res.${r}`)}</option>)}
-          </select>
-        </label>
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('preset')}</span>
-          <select name="preset" defaultValue={settings.preset} className={selectClass}>
-            {PRESETS.map((p) => <option key={p} value={p}>{t(`presets.${p}`)}</option>)}
-          </select>
-        </label>
-        <label className="space-y-1.5">
-          <span className="text-muted">{t('upscaling')}</span>
-          <select name="up" defaultValue={settings.upscaling} className={selectClass}>
-            {UPSCALING.map((u) => <option key={u} value={u}>{t(`up.${u}`)}</option>)}
-          </select>
-        </label>
-
-        <details className="md:col-span-3" open={compare}>
-          <summary className="cursor-pointer text-muted hover:text-foreground">{t('compare')}</summary>
-          <div className="mt-3 grid gap-4 md:grid-cols-3">
-            <label className="space-y-1.5">
-              <span className="text-muted">{t('cpu2')}</span>
-              <select name="cpu2" defaultValue={sel.cpu2} className={selectClass}>{options('cpu', t('same'))}</select>
+      <div className="mt-8 grid gap-8 lg:grid-cols-[22rem_1fr]">
+        {/* ── Настройки: обычная GET-форма, результат — в адресе страницы ── */}
+        <form
+          action={getPathname({ href: '/fps', locale })}
+          className={cn(panel, 'h-fit space-y-6 p-5 lg:sticky lg:top-24')}
+        >
+          <fieldset className="space-y-4">
+            <legend className="mb-3 font-medium">{t('rigTitle')}</legend>
+            <label className={labelClass}>
+              <span className={labelText}>{t('cpu')}</span>
+              <select name="cpu" defaultValue={sel.cpu} className={selectClass}>{options('cpu')}</select>
             </label>
-            <label className="space-y-1.5">
-              <span className="text-muted">{t('gpu2')}</span>
-              <select name="gpu2" defaultValue={sel.gpu2} className={selectClass}>{options('gpu', t('same'))}</select>
+            <label className={labelClass}>
+              <span className={labelText}>{t('gpu')}</span>
+              <select name="gpu" defaultValue={sel.gpu} className={selectClass}>{options('gpu')}</select>
             </label>
-          </div>
-        </details>
+            <label className={labelClass}>
+              <span className={labelText}>{t('ram')}</span>
+              <select name="ram" defaultValue={sel.ram} className={selectClass}>{options('ram', t('ramAny'))}</select>
+            </label>
+          </fieldset>
 
-        <div className="flex flex-wrap items-center gap-4 md:col-span-3">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="rt" value="1" defaultChecked={settings.rt} className="size-4 accent-[var(--accent)]" />
-            {t('rt')}
-          </label>
-          <button type="submit" className="ml-auto rounded-lg bg-accent px-5 py-2 font-medium text-on-accent hover:bg-accent-strong">
+          <fieldset className="space-y-4 border-t border-border pt-5">
+            <legend className="float-left mb-3 w-full font-medium">{t('settingsTitle')}</legend>
+            <label className={labelClass}>
+              <span className={labelText}>{t('resolution')}</span>
+              <select name="res" defaultValue={settings.resolution} className={selectClass}>
+                {RESOLUTIONS.map((r) => <option key={r} value={r}>{t(`res.${r}`)}</option>)}
+              </select>
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <label className={labelClass}>
+                <span className={labelText}>{t('preset')}</span>
+                <select name="preset" defaultValue={settings.preset} className={selectClass}>
+                  {PRESETS.map((p) => <option key={p} value={p}>{t(`presets.${p}`)}</option>)}
+                </select>
+              </label>
+              <label className={labelClass}>
+                <span className={labelText}>{t('upscaling')}</span>
+                <select name="up" defaultValue={settings.upscaling} className={selectClass}>
+                  {UPSCALING.map((u) => <option key={u} value={u}>{t(`up.${u}`)}</option>)}
+                </select>
+              </label>
+            </div>
+            <label className="flex min-h-11 cursor-pointer items-center gap-3 text-sm">
+              <input type="checkbox" name="rt" value="1" defaultChecked={settings.rt} className="size-4 accent-[var(--accent)]" />
+              {t('rt')}
+            </label>
+          </fieldset>
+
+          <details className="group border-t border-border pt-5" open={compare}>
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 font-medium [&::-webkit-details-marker]:hidden">
+              {t('compare')}
+              <ChevronDown className="size-4 shrink-0 text-muted transition-transform group-open:rotate-180" aria-hidden />
+            </summary>
+            <div className="mt-3 space-y-4">
+              <label className={labelClass}>
+                <span className={labelText}>{t('cpu2')}</span>
+                <select name="cpu2" defaultValue={sel.cpu2} className={selectClass}>{options('cpu', t('same'))}</select>
+              </label>
+              <label className={labelClass}>
+                <span className={labelText}>{t('gpu2')}</span>
+                <select name="gpu2" defaultValue={sel.gpu2} className={selectClass}>{options('gpu', t('same'))}</select>
+              </label>
+            </div>
+          </details>
+
+          <button type="submit" className={button('primary', 'lg', 'w-full')}>
             {t('calculate')}
           </button>
+        </form>
+
+        {/* ── Результат ── */}
+        <div className="min-w-0 space-y-4">
+          <section aria-label={t('avgLabel')} className={cn(panel, 'glow flex flex-wrap items-end gap-x-10 gap-y-5 p-6')}>
+            <div>
+              <p className="text-sm text-muted">{compare ? t('configA') : t('avgLabel')}</p>
+              <p className="tabular mt-1 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
+                {avgA ?? '—'}
+                <span className="ml-2 font-sans text-base font-normal text-muted">FPS</span>
+              </p>
+            </div>
+            {compare && (
+              <div>
+                <p className="text-sm text-muted">{t('configB')}</p>
+                <p className="tabular mt-1 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
+                  {avgB ?? '—'}
+                  {avgA !== null && avgB !== null && avgB !== avgA && (
+                    <span className={cn('ml-3 font-sans text-base font-medium', avgB > avgA ? 'text-plasma' : 'text-danger')}>
+                      {avgB > avgA ? `+${avgB - avgA}` : avgB - avgA}
+                    </span>
+                  )}
+                </p>
+              </div>
+            )}
+            {compare && <p className="basis-full text-sm text-muted">{t('avgLabel')}</p>}
+            <ul className="flex basis-full flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted" aria-label={t('tiersTitle')}>
+              {TIERS.map((tier) => (
+                <li key={tier} className="flex items-center gap-1.5">
+                  <span className={cn('size-2 rounded-full bg-current', TIER_CLASS[tier])} aria-hidden />
+                  {t(`tiers.${tier}`)}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <div className={cn(panel, 'relative overflow-x-auto')}>
+            <table className="w-full min-w-[34rem] text-sm">
+              <thead className="border-b border-border text-left text-muted">
+                <tr>
+                  <th className={cn('px-5 py-3 font-normal', compare && 'w-2/5')}>{t('game')}</th>
+                  <th className={cn('px-5 py-3 font-normal', compare && 'w-[30%]')}>{compare ? t('configA') : t('fpsCol')}</th>
+                  {compare && <th className="px-5 py-3 font-normal">{t('configB')}</th>}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {rows.map(({ game, a, b }) => (
+                  <tr key={game.id} className="align-top">
+                    <td className="px-5 py-3">
+                      <span className="font-medium">{gameTitle(game, locale)}</span>
+                      <span className="tabular mt-0.5 block text-xs text-muted">
+                        {game.year}
+                        {settings.rt && !game.supportsRt && ` · ${t('noRt')}`}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3"><FpsCell estimate={a} /></td>
+                    {compare && (
+                      <td className="px-5 py-3">
+                        <FpsCell estimate={b} delta={a && b ? b.avg - a.avg : undefined} />
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {rows.some((r) => r.a?.warnings.length) && (
+            <p className="flex gap-2 text-xs text-warning">
+              <AlertTriangle className="size-4 shrink-0" aria-hidden />
+              {t('warningsHint')}
+            </p>
+          )}
         </div>
-      </form>
-
-      <div className="mt-6 flex flex-wrap gap-6 text-sm">
-        <p>{t('average', { fps: avgOf('a') ?? '—' })}</p>
-        {compare && <p className="text-muted">{t('averageB', { fps: avgOf('b') ?? '—' })}</p>}
       </div>
-
-      <div className="relative mt-4 overflow-x-auto rounded-xl border border-border">
-        <table className="w-full min-w-[36rem] text-sm">
-          <thead className="bg-surface text-left text-muted">
-            <tr>
-              <th className="px-4 py-2 font-normal">{t('game')}</th>
-              <th className="px-4 py-2 font-normal">{compare ? t('configA') : t('fpsCol')}</th>
-              {compare && <th className="px-4 py-2 font-normal">{t('configB')}</th>}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {rows.map(({ game, a, b }) => (
-              <tr key={game.id}>
-                <td className="px-4 py-2">
-                  <span className="font-medium">{gameTitle(game, locale)}</span>
-                  <span className="block text-xs text-muted">
-                    {game.year}
-                    {settings.rt && !game.supportsRt && ` · ${t('noRt')}`}
-                  </span>
-                </td>
-                <td className="px-4 py-2"><FpsCell estimate={a} /></td>
-                {compare && (
-                  <td className="px-4 py-2">
-                    <FpsCell estimate={b} delta={a && b ? b.avg - a.avg : undefined} />
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {rows.some((r) => r.a?.warnings.length) && (
-        <p className="mt-4 flex gap-2 text-xs text-warning">
-          <AlertTriangle className="size-4 shrink-0" />
-          {t('warningsHint')}
-        </p>
-      )}
     </div>
   )
 }
